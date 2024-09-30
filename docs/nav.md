@@ -1,5 +1,10 @@
 - [Home](./index.md)
 - [Tutorial](./tutorial/index.md)
+    - [MUDA Tutorial](./tutorial/tutorial.md)
+    - [MUDA Tutorial - Event](./tutorial/event.md)
+    - [MUDA Tutorial - Logger](./tutorial/logger.md)
+    - [Use Thrust with MUDA](./tutorial/thrust.md)
+    - [Compute Graph](./tutorial/graph.md)
 - API Documentation
     - [Links](muda/links.md)
 - Classes
