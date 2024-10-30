@@ -385,7 +385,7 @@ class TripletMatrixViewBase<IsConst, Ty, 1> : public ViewBase<IsConst>
 
     MUDA_GENERIC auto subview(int offset, int count) const
     {
-        MUDA_ASSERT(offset + count < m_triplet_count,
+        MUDA_ASSERT(offset + count <= m_triplet_count,
                     "TripletMatrixView: offset is out of range, size=%d, your offset=%d, your count=%d",
                     m_triplet_count,
                     offset,
