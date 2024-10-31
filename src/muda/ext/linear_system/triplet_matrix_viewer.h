@@ -434,16 +434,25 @@ class TripletMatrixViewerBase<IsConst, T, 1> : public ViewerBase<IsConst>
         return CTriplet{sub_i, sub_j, m_values[index]};
     }
 
-    auto total_rows() const { return m_total_rows; }
-    auto total_cols() const { return m_total_cols; }
+    MUDA_GENERIC auto total_rows() const { return m_total_rows; }
+    MUDA_GENERIC auto total_cols() const { return m_total_cols; }
 
-    auto triplet_count() const { return m_triplet_count; }
-    auto tripet_index_offset() const { return m_triplet_index_offset; }
-    auto total_triplet_count() const { return m_total_triplet_count; }
+    MUDA_GENERIC auto triplet_count() const { return m_triplet_count; }
+    MUDA_GENERIC auto tripet_index_offset() const
+    {
+        return m_triplet_index_offset;
+    }
+    MUDA_GENERIC auto total_triplet_count() const
+    {
+        return m_total_triplet_count;
+    }
 
-    auto submatrix_offset() const { return m_submatrix_offset; }
-    auto extent() const { return m_submatrix_extent; }
-    auto total_extent() const { return int2{m_total_rows, m_total_cols}; }
+    MUDA_GENERIC auto submatrix_offset() const { return m_submatrix_offset; }
+    MUDA_GENERIC auto extent() const { return m_submatrix_extent; }
+    MUDA_GENERIC auto total_extent() const
+    {
+        return int2{m_total_rows, m_total_cols};
+    }
 
   protected:
     MUDA_INLINE MUDA_GENERIC int get_index(int i) const noexcept
