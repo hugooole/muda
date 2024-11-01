@@ -562,11 +562,7 @@ class TripletMatrixViewer<T, 1> : public TripletMatrixViewerBase<false, T, 1>
 
     using Base::operator();
 
-    MUDA_GENERIC Proxy operator()(int i)
-    {
-        auto index = Base::get_index(i);
-        return Proxy{*this, index};
-    }
+    MUDA_GENERIC Proxy operator()(int i) { return Proxy{*this, i}; }
 };
 }  // namespace muda
 
