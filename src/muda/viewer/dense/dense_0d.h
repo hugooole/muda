@@ -33,7 +33,7 @@ class DenseViewerT : public ViewerBase<IsConst>
     {
     }
 
-    MUDA_GENERIC DenseViewerT(const ThisViewer&) MUDA_NOEXCEPT = default;
+    MUDA_GENERIC DenseViewerT(const DenseViewerT&) MUDA_NOEXCEPT = default;
 
     template <bool OtherIsConst>
     MUDA_GENERIC DenseViewerT(const DenseViewerT<OtherIsConst, T>& other) MUDA_NOEXCEPT
