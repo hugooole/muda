@@ -29,8 +29,8 @@ void test_doublet_vector(int segment_size, int doublet_count)
         segment_values[i] = Eigen::Vector<T, BlockDim>::Ones();
     }
 
-    doublet.segment_indices().copy_from(segment_indices.data());
-    doublet.segment_values().copy_from(segment_values.data());
+    doublet.indices().copy_from(segment_indices.data());
+    doublet.values().copy_from(segment_values.data());
 
     Eigen::VectorX<T> ground_truth = Eigen::VectorX<T>::Zero(segment_size * BlockDim);
 

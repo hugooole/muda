@@ -55,9 +55,9 @@ void test_sparse_matrix(int block_row_size, int non_zero_block_count)
     A_triplet.reshape(block_row_size, block_row_size);
     A_triplet.resize_triplets(non_zero_block_count);
 
-    A_triplet.block_row_indices().copy_from(row_indices.data());
-    A_triplet.block_col_indices().copy_from(col_indices.data());
-    A_triplet.block_values().copy_from(blocks.data());
+    A_triplet.row_indices().copy_from(row_indices.data());
+    A_triplet.col_indices().copy_from(col_indices.data());
+    A_triplet.values().copy_from(blocks.data());
     {
         ctx.spmv(A_triplet.cview(), x.cview(), b.view());
         ctx.sync();

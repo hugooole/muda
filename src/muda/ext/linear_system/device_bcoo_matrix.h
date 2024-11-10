@@ -7,8 +7,8 @@
 
 namespace muda::details
 {
-    template <typename T, int N>
-    class MatrixFormatConverter;
+template <typename T, int N>
+class MatrixFormatConverter;
 }
 
 namespace muda
@@ -19,15 +19,13 @@ class DeviceBCOOMatrix : public DeviceTripletMatrix<T, N>
     friend class details::MatrixFormatConverter<T, N>;
 
   public:
-    using BlockMatrix = Eigen::Matrix<T, N, N>;
-
     DeviceBCOOMatrix()                                   = default;
     ~DeviceBCOOMatrix()                                  = default;
     DeviceBCOOMatrix(const DeviceBCOOMatrix&)            = default;
     DeviceBCOOMatrix(DeviceBCOOMatrix&&)                 = default;
     DeviceBCOOMatrix& operator=(const DeviceBCOOMatrix&) = default;
     DeviceBCOOMatrix& operator=(DeviceBCOOMatrix&&)      = default;
-    auto non_zero_blocks() const { return this->m_block_values.size(); }
+    auto              non_zeros() const { return this->m_values.size(); }
 };
 
 template <typename Ty>

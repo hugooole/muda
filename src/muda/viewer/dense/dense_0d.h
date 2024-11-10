@@ -97,13 +97,13 @@ using CDense = DenseViewerT<true, T>;
 
 // viewer traits
 template <typename T>
-struct read_only_viewer<Dense<T>>
+struct read_only_view<Dense<T>>
 {
     using type = CDense<T>;
 };
 
 template <typename T>
-struct read_write_viewer<CDense<T>>
+struct read_write_view<CDense<T>>
 {
     using type = Dense<T>;
 };

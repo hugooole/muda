@@ -13,27 +13,29 @@ void LinearSystemContext::spmv(const T&                 a,
 {
     using namespace muda;
 
-    MUDA_ASSERT(A.extent() == A.total_extent() && A.triplet_count() == A.total_triplet_count(),
+    MUDA_ASSERT(A.extent().x == A.total_extent().x
+                    && A.extent().y == A.total_extent().y
+                    && A.triplet_count() == A.total_triplet_count(),
                 "submatrix or subview of a Triplet Matrix is not allowed in SPMV!");
 
     MUDA_ASSERT(A.total_block_cols() * N == x.size() && A.total_block_rows() * N == y.size(),
                 "Dimension mismatch in SPMV!");
 
     if(b != T{0})
-	{
+    {
         ParallelFor(0, stream())
-            .kernel_name(__FUNCTION__)
+            .file_line(__FILE__, __LINE__)
             .apply(y.size(),
                    [b = b, y = y.viewer().name("y")] __device__(int i) mutable
                    { y(i) = b * y(i); });
-	}
+    }
     else
     {
         BufferLaunch(stream()).fill(y.buffer_view(), T{0});
     }
 
     ParallelFor(0, stream())
-        .kernel_name(__FUNCTION__)
+        .file_line(__FILE__, __LINE__)
         .apply(A.triplet_count(),
                [a = a,
                 A = A.viewer().name("A"),
@@ -50,15 +52,6 @@ void LinearSystemContext::spmv(const T&                 a,
                    auto seg_y = y.segment<N>(i * N);
                    seg_y.atomic_add(result.eval());
                });
-
-    //if(b != T{0})
-    //{
-    //    ParallelFor(0, stream())
-    //        .kernel_name(__FUNCTION__)
-    //        .apply(y.size(),
-    //               [b = b, t = t.viewer().name("t"), y = y.viewer().name("y")] __device__(
-    //                   int i) mutable { y(i) += b * t(i); });
-    //}
 }
 template <typename T, int N>
 void muda::LinearSystemContext::spmv(CTripletMatrixView<T, N> A,

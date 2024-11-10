@@ -1,5 +1,4 @@
 #pragma once
-
 #include <muda/ext/linear_system/doublet_vector_view.h>
 #include <muda/ext/linear_system/bcoo_vector_viewer.h>
 
@@ -150,13 +149,13 @@ using CCOOVectorView = COOVectorViewBase<true, T>;
 namespace muda
 {
 template <typename T>
-struct read_only_viewer<COOVectorView<T>>
+struct read_only_view<COOVectorView<T>>
 {
     using type = CCOOVectorView<T>;
 };
 
 template <typename T>
-struct read_write_viewer<CCOOVectorView<T>>
+struct read_write_view<CCOOVectorView<T>>
 {
     using type = COOVectorView<T>;
 };

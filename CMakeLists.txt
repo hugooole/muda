@@ -38,6 +38,10 @@ target_compile_options(muda INTERFACE
   $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
   $<$<COMPILE_LANGUAGE:CUDA>:-rdc=true>
 )
+# disable warning
+target_compile_options(muda INTERFACE
+  $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe --display_error_number --diag-suppress 20012>
+)
 file(GLOB_RECURSE MUDA_HEADER_FILES "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_SOURCE_DIR}/src/*.inl" "${PROJECT_SOURCE_DIR}/src/*.cuh")
 
 target_sources(muda PUBLIC ${MUDA_HEADER_FILES})

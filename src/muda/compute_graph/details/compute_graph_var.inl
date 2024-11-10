@@ -81,7 +81,7 @@ MUDA_INLINE bool ComputeGraphVarBase::is_using()
 
 MUDA_INLINE void ComputeGraphVarBase::sync()
 {
-    for (auto& [graph, info] : m_related_closure_infos)
+    for(auto& [graph, info] : m_related_closure_infos)
     {
         checkCudaErrors(cudaEventSynchronize(graph->m_event));
     }
@@ -105,7 +105,7 @@ RWView ComputeGraphVarBase::_eval(const RWView& view)
                         "ComputeGraphVar[%s] is not valid, please update it before use",
                         name().data());
 
-            constexpr auto const_eval = is_uniform_viewer_v<RWView>;
+            constexpr auto const_eval = is_uniform_view_v<RWView>;
 
             if constexpr(const_eval)
             {
