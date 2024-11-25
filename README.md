@@ -165,6 +165,21 @@ Contributions are welcome. We are looking for or are working on:
 
 ## Related Work
 
+- [Libuipc](https://github.com/spiriMirror/libuipc) using **muda** for GPU IPC simulation.
+  
+  ```
+  @misc{huang2024advancinggpuipcstiff,
+      title={Advancing GPU IPC for stiff affine-deformable simulation}, 
+      author={Kemeng Huang and Xinyu Lu and Huancheng Lin and Taku Komura and Minchen Li},
+      year={2024},
+      eprint={2411.06224},
+      archivePrefix={arXiv},
+      primaryClass={cs.GR},
+      url={https://arxiv.org/abs/2411.06224}, 
+  }
+  ```
+  ![libuipc](./docs/img/libuipc.png)
+
 - Topological braiding simulation using **muda** (old version)
 
   ```latex
