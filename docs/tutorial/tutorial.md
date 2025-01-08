@@ -129,9 +129,9 @@ Definition: MUDA-viewer is a family of observer of memory, providing a method to
 
 MUDA Viewer has the following traits:
 
-- trivial copyable: there is no side-effect of copying viewers on the host, on the device or between host and device.
-- mapping: viewer converts logical index to memory offset.
-- checking: viewer checks the boundary when processing logical index, avoiding out-of-bounds behaviors and null pointer accesses.
+- **trivial copyable**: there is no side-effect of copying viewers on the host, on the device or between host and device.
+- **mapping**: viewer converts logical index to memory offset.
+- **checking**: viewer checks the boundary when processing logical index, avoiding out-of-bounds behaviors and null pointer accesses.
 
 The code above is not elegant enough, in which the logic of parallel codes interweave with the parameters of the kernels, making the code obscure and less readable. In fact, this kind of operations are pretty common so there is a new Launcher `ParallelFor` in MUDA for this.
 
