@@ -4,12 +4,12 @@ namespace muda
 //using T         = float;
 //constexpr int N = 3;
 
-template <typename T, int N>
-void LinearSystemContext::spmv(const T&                 a,
-                               CTripletMatrixView<T, N> A,
-                               CDenseVectorView<T>      x,
-                               const T&                 b,
-                               DenseVectorView<T>&      y)
+template <typename T, int M, int N>
+void LinearSystemContext::spmv(const T&                    a,
+                               CTripletMatrixView<T, M, N> A,
+                               CDenseVectorView<T>         x,
+                               const T&                    b,
+                               DenseVectorView<T>&         y)
 {
     using namespace muda;
 
@@ -18,8 +18,12 @@ void LinearSystemContext::spmv(const T&                 a,
                     && A.triplet_count() == A.total_triplet_count(),
                 "submatrix or subview of a Triplet Matrix is not allowed in SPMV!");
 
-    MUDA_ASSERT(A.total_block_cols() * N == x.size() && A.total_block_rows() * N == y.size(),
-                "Dimension mismatch in SPMV!");
+    MUDA_ASSERT(A.total_cols() * N == x.size() && A.total_rows() * M == y.size(),
+                "Dimension mismatch in SPMV, A(%d, %d), x(%d), y(%d)",
+                A.total_rows(),
+                A.total_cols(),
+                x.size(),
+                y.size());
 
     if(b != T{0})
     {
@@ -49,14 +53,15 @@ void LinearSystemContext::spmv(const T&                 a,
                    Eigen::Vector<T, N> vec_x  = seg_x.as_eigen();
                    auto                result = a * block * vec_x;
 
-                   auto seg_y = y.segment<N>(i * N);
+                   auto seg_y = y.segment<M>(i * M);
                    seg_y.atomic_add(result.eval());
                });
 }
-template <typename T, int N>
-void muda::LinearSystemContext::spmv(CTripletMatrixView<T, N> A,
-                                     CDenseVectorView<T>      x,
-                                     DenseVectorView<T>       y)
+
+template <typename T, int M, int N>
+void muda::LinearSystemContext::spmv(CTripletMatrixView<T, M, N> A,
+                                     CDenseVectorView<T>         x,
+                                     DenseVectorView<T>          y)
 {
     spmv<T, N>(T{1}, A, x, T{0}, y);
 }

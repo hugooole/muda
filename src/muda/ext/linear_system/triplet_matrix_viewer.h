@@ -12,23 +12,23 @@
 
 namespace muda
 {
-template <bool IsConst, typename T, int N>
+template <bool IsConst, typename T, int M, int N = M>
 class TripletMatrixViewerT : public ViewerBase<IsConst>
 {
     using Base = ViewerBase<IsConst>;
     template <typename U>
     using auto_const_t = typename Base::template auto_const_t<U>;
 
-    template <bool OtherIsConst, typename U, int M>
+    template <bool OtherIsConst, typename U, int M_, int N_>
     friend class TripletMatrixViewerT;
 
     MUDA_VIEWER_COMMON_NAME(TripletMatrixViewerT);
 
   public:
-    using ValueT      = std::conditional_t<N == 1, T, Eigen::Matrix<T, N, N>>;
-    using ConstViewer = TripletMatrixViewerT<true, T, N>;
-    using NonConstViewer = TripletMatrixViewerT<false, T, N>;
-    using ThisViewer     = TripletMatrixViewerT<IsConst, T, N>;
+    using ValueT      = std::conditional_t<N == 1, T, Eigen::Matrix<T, M, N>>;
+    using ConstViewer = TripletMatrixViewerT<true, T, M, N>;
+    using NonConstViewer = TripletMatrixViewerT<false, T, M, N>;
+    using ThisViewer     = TripletMatrixViewerT<IsConst, T, M, N>;
 
     struct CTriplet
     {
@@ -279,11 +279,11 @@ class TripletMatrixViewerT : public ViewerBase<IsConst>
     }
 };
 
-template <typename T, int N>
-using TripletMatrixViewer = TripletMatrixViewerT<false, T, N>;
+template <typename T, int M, int N>
+using TripletMatrixViewer = TripletMatrixViewerT<false, T, M, N>;
 
-template <typename T, int N>
-using CTripletMatrixViewer = TripletMatrixViewerT<true, T, N>;
+template <typename T, int M, int N>
+using CTripletMatrixViewer = TripletMatrixViewerT<true, T, M, N>;
 }  // namespace muda
 
 #include "details/triplet_matrix_viewer.inl"

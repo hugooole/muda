@@ -7,16 +7,16 @@
 
 namespace muda::details
 {
-template <typename T, int N>
+template <typename T, int M, int N>
 class MatrixFormatConverter;
 }
 
 namespace muda
 {
-template <typename T, int N>
-class DeviceBCOOMatrix : public DeviceTripletMatrix<T, N>
+template <typename T, int M, int N = M>
+class DeviceBCOOMatrix : public DeviceTripletMatrix<T, M, N>
 {
-    friend class details::MatrixFormatConverter<T, N>;
+    friend class details::MatrixFormatConverter<T, M, N>;
 
   public:
     DeviceBCOOMatrix()                                   = default;
@@ -29,9 +29,9 @@ class DeviceBCOOMatrix : public DeviceTripletMatrix<T, N>
 };
 
 template <typename Ty>
-class DeviceBCOOMatrix<Ty, 1> : public DeviceTripletMatrix<Ty, 1>
+class DeviceBCOOMatrix<Ty, 1, 1> : public DeviceTripletMatrix<Ty, 1, 1>
 {
-    template <typename U, int M>
+    template <typename U, int M_, int N_>
     friend class details::MatrixFormatConverter;
 
   protected:
@@ -146,9 +146,6 @@ class DeviceBCOOMatrix<Ty, 1> : public DeviceTripletMatrix<Ty, 1>
         return m_descr;
     }
 
-    //auto T() const { return view().T(); }
-    //auto T() { return view().T(); }
-
     operator COOMatrixView<Ty>() { return view(); }
     operator CCOOMatrixView<Ty>() const { return view(); }
 
@@ -175,7 +172,7 @@ class DeviceBCOOMatrix<Ty, 1> : public DeviceTripletMatrix<Ty, 1>
 };
 
 template <typename T>
-using DeviceCOOMatrix = DeviceBCOOMatrix<T, 1>;
+using DeviceCOOMatrix = DeviceBCOOMatrix<T, 1, 1>;
 }  // namespace muda
 
 #include "details/device_bcoo_matrix.inl"

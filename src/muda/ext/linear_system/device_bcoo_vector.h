@@ -8,7 +8,8 @@ namespace muda
 template <typename T, int N>
 class DeviceBCOOVector : public DeviceDoubletVector<T, N>
 {
-    friend class details::MatrixFormatConverter<T, N>;
+    template <typename U, int M_, int N_>
+    friend class details::MatrixFormatConverter;
 
   public:
     using SegmentVector = Eigen::Matrix<T, N, 1>;
@@ -26,7 +27,7 @@ class DeviceBCOOVector : public DeviceDoubletVector<T, N>
 template <typename T>
 class DeviceBCOOVector<T, 1> : public DeviceDoubletVector<T, 1>
 {
-    template <typename U, int N>
+    template <typename U, int M, int N>
     friend class details::MatrixFormatConverter;
 
   protected:

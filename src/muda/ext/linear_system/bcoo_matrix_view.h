@@ -4,10 +4,10 @@
 
 namespace muda
 {
-template <typename T, int N>
-using BCOOMatrixView = TripletMatrixView<T, N>;
-template <typename T, int N>
-using CBCOOMatrixView = CTripletMatrixView<T, N>;
+template <typename T, int M, int N>
+using BCOOMatrixView = TripletMatrixView<T, M, N>;
+template <typename T, int M, int N>
+using CBCOOMatrixView = CTripletMatrixView<T, M, N>;
 }  // namespace muda
 
 namespace muda
@@ -172,16 +172,16 @@ class COOMatrixViewT : public ViewBase<IsConst>
         MUDA_KERNEL_ASSERT(!m_trans,
                            "COOMatrixView: cviewer() is not supported for "
                            "transposed matrix, please use a non-transposed view of this matrix");
-        return CTripletMatrixViewer<Ty, 1>{m_rows,
-                                           m_cols,
-                                           m_triplet_index_offset,
-                                           m_triplet_count,
-                                           m_total_triplet_count,
-                                           m_submatrix_offset,
-                                           m_submatrix_extent,
-                                           m_row_indices,
-                                           m_col_indices,
-                                           m_values};
+        return CTripletMatrixViewer<Ty, 1, 1>{m_rows,
+                                              m_cols,
+                                              m_triplet_index_offset,
+                                              m_triplet_count,
+                                              m_total_triplet_count,
+                                              m_submatrix_offset,
+                                              m_submatrix_extent,
+                                              m_row_indices,
+                                              m_col_indices,
+                                              m_values};
     }
 
     MUDA_GENERIC auto viewer()
@@ -189,16 +189,16 @@ class COOMatrixViewT : public ViewBase<IsConst>
         MUDA_ASSERT(!m_trans,
                     "COOMatrixView: viewer() is not supported for "
                     "transposed matrix, please use a non-transposed view of this matrix");
-        return TripletMatrixViewer<Ty, 1>{m_rows,
-                                          m_cols,
-                                          m_triplet_index_offset,
-                                          m_triplet_count,
-                                          m_total_triplet_count,
-                                          m_submatrix_offset,
-                                          m_submatrix_extent,
-                                          m_row_indices,
-                                          m_col_indices,
-                                          m_values};
+        return TripletMatrixViewer<Ty, 1, 1>{m_rows,
+                                             m_cols,
+                                             m_triplet_index_offset,
+                                             m_triplet_count,
+                                             m_total_triplet_count,
+                                             m_submatrix_offset,
+                                             m_submatrix_extent,
+                                             m_row_indices,
+                                             m_col_indices,
+                                             m_values};
     }
 
     // const access

@@ -36,19 +36,22 @@ namespace details
       protected:
         LinearSystemHandles& m_handles;
         cudaDataType_t       m_data_type;
+        int                  m_M;
         int                  m_N;
 
       public:
-        MatrixFormatConverterBase(LinearSystemHandles& context, cudaDataType_t data_type, int N)
+        MatrixFormatConverterBase(LinearSystemHandles& context, cudaDataType_t data_type, int M, int N)
             : m_handles(context)
             , m_data_type(data_type)
+            , m_M(M)
             , m_N(N)
         {
         }
 
         virtual ~MatrixFormatConverterBase() = default;
 
-        auto dim() const { return m_N; }
+        auto dim_N() const { return m_N; }
+        auto dim_M() const { return m_M; }
         auto data_type() const { return m_data_type; }
         auto cublas() const { return m_handles.cublas(); }
         auto cusparse() const { return m_handles.cusparse(); }
@@ -64,20 +67,15 @@ namespace details
         }
     };
 
-    //using T         = float;
-    //constexpr int N = 3;
-    //template <>
-    //class MatrixFormatConverter<T, N> : public MatrixFormatConverterBase
-
-    template <typename T, int N>
+    template <typename T, int M, int N>
     class MatrixFormatConverter : public MatrixFormatConverterBase
     {
-        using MatrixValueT = typename DeviceTripletMatrix<T, N>::ValueT;
-        using VectorValueT = typename DeviceDoubletVector<T, N>::ValueT;
+        using MatrixValueT = typename DeviceTripletMatrix<T, M, N>::ValueT;
+        using VectorValueT = typename DeviceDoubletVector<T, M>::ValueT;
 
         MatrixValueT MatrixValueTZero() const
         {
-            if constexpr(N > 1)
+            if constexpr(M > 1 || N > 1)
             {
                 return MatrixValueT::Zero().eval();
             }
@@ -89,7 +87,7 @@ namespace details
 
         VectorValueT VectorValueTZero() const
         {
-            if constexpr(N > 1)
+            if constexpr(M > 1)
             {
                 return VectorValueT::Zero().eval();
             }
@@ -106,8 +104,8 @@ namespace details
         DeviceBuffer<int> col_tmp;
         DeviceBuffer<int> row_tmp;
 
-        DeviceBCOOMatrix<T, N> temp_bcoo_matrix;
-        DeviceBCOOVector<T, N> temp_bcoo_vector;
+        DeviceBCOOMatrix<T, M, N> temp_bcoo_matrix;
+        DeviceBCOOVector<T, N>    temp_bcoo_vector;
 
         DeviceBuffer<int> unique_indices;
         DeviceBuffer<int> unique_counts;
@@ -129,7 +127,7 @@ namespace details
 
       public:
         MatrixFormatConverter(LinearSystemHandles& handles)
-            : MatrixFormatConverterBase(handles, cuda_data_type<T>(), N)
+            : MatrixFormatConverterBase(handles, cuda_data_type<T>(), M, N)
         {
         }
 
@@ -137,7 +135,8 @@ namespace details
 
 
         // Triplet -> BCOO
-        void convert(const DeviceTripletMatrix<T, N>& from, DeviceBCOOMatrix<T, N>& to)
+        void convert(const DeviceTripletMatrix<T, M, N>& from,
+                     DeviceBCOOMatrix<T, M, N>&          to)
         {
             to.reshape(from.rows(), from.cols());
             to.resize_triplets(from.triplet_count());
@@ -146,7 +145,7 @@ namespace details
             if(to.triplet_count() == 0)
                 return;
 
-            if constexpr(N <= 3)
+            if constexpr(M <= 3 && N <= 3)
             {
                 radix_sort_indices_and_blocks(from, to);
                 make_unique_indices_and_blocks(from, to);
@@ -160,7 +159,7 @@ namespace details
         }
 
         void radix_sort_indices_and_blocks(const DeviceTripletMatrix<T, N>& from,
-                                           DeviceBCOOMatrix<T, N>& to)
+                                           DeviceBCOOMatrix<T, M, N>& to)
         {
             auto src_row_indices = from.row_indices();
             auto src_col_indices = from.col_indices();
@@ -227,8 +226,8 @@ namespace details
         }
 
 
-        void make_unique_indices_and_blocks(const DeviceTripletMatrix<T, N>& from,
-                                            DeviceBCOOMatrix<T, N>& to)
+        void make_unique_indices_and_blocks(const DeviceTripletMatrix<T, M, N>& from,
+                                            DeviceBCOOMatrix<T, M, N>& to)
         {
             // alias to reuse the memory
             auto& unique_ij_hash = ij_hash_input;
@@ -249,7 +248,7 @@ namespace details
 
             // set ij_hash back to row_indices and col_indices
             ParallelFor()
-                .kernel_name("set col row indices")
+                .file_line(__FILE__, __LINE__)
                 .apply(to.row_indices().size(),
                        [ij_hash = unique_ij_hash.viewer().name("ij_hash"),
                         row_indices = to.row_indices().viewer().name("row_indices"),
@@ -264,8 +263,8 @@ namespace details
                        });
         }
 
-        void merge_sort_indices_and_blocks(const DeviceTripletMatrix<T, N>& from,
-                                           DeviceBCOOMatrix<T, N>& to)
+        void merge_sort_indices_and_blocks(const DeviceTripletMatrix<T, M, N>& from,
+                                           DeviceBCOOMatrix<T, M, N>& to)
         {
             using namespace muda;
 
@@ -332,8 +331,8 @@ namespace details
                        { dst_blocks(i) = src_blocks(sort_index(i)); });
         }
 
-        void make_unique_indices(const DeviceTripletMatrix<T, N>& from,
-                                 DeviceBCOOMatrix<T, N>&          to)
+        void make_unique_indices(const DeviceTripletMatrix<T, M, N>& from,
+                                 DeviceBCOOMatrix<T, M, N>&          to)
         {
             using namespace muda;
 
@@ -376,8 +375,8 @@ namespace details
             col_indices.resize(h_count);
         }
 
-        void make_unique_blocks(const DeviceTripletMatrix<T, N>& from,
-                                DeviceBCOOMatrix<T, N>&          to)
+        void make_unique_blocks(const DeviceTripletMatrix<T, M, N>& from,
+                                DeviceBCOOMatrix<T, M, N>&          to)
         {
             using namespace muda;
 
@@ -411,9 +410,9 @@ namespace details
 
 
         // BCOO -> Dense Matrix
-        void convert(const DeviceBCOOMatrix<T, N>& from,
-                     DeviceDenseMatrix<T>&         to,
-                     bool                          clear_dense_matrix = true)
+        void convert(const DeviceBCOOMatrix<T, M, N>& from,
+                     DeviceDenseMatrix<T>&            to,
+                     bool                             clear_dense_matrix = true)
         {
             using namespace muda;
             auto size = N * from.rows();
@@ -444,24 +443,23 @@ namespace details
         }
 
         // BCOO -> COO
-        void convert(const DeviceBCOOMatrix<T, N>& from, DeviceCOOMatrix<T>& to)
-            MUDA_REQUIRES(N > 1)
+        void convert(const DeviceBCOOMatrix<T, M, N>& from, DeviceCOOMatrix<T>& to)
+            MUDA_REQUIRES(M* N > 1)
         {
-            static_assert(N > 1, "N must be greater than 1");
+            static_assert(M * N > 1, "M * N must be greater than 1");
             expand_blocks(from, to);
             sort_indices_and_values(from, to);
         }
 
-        void expand_blocks(const DeviceBCOOMatrix<T, N>& from, DeviceCOOMatrix<T>& to)
-            MUDA_REQUIRES(N > 1)
+        void expand_blocks(const DeviceBCOOMatrix<T, M, N>& from,
+                           DeviceCOOMatrix<T>& to) MUDA_REQUIRES(M* N > 1)
         {
-            static_assert(N > 1, "N must be greater than 1");
-            using namespace muda;
+            static_assert(M * N > 1, "M * N  must be greater than 1");
 
-            constexpr int N2 = N * N;
+            constexpr int MN = M * N;
 
             to.reshape(from.rows() * N, from.cols() * N);
-            to.resize_triplets(from.non_zeros() * N2);
+            to.resize_triplets(from.non_zeros() * MN);
 
             auto& dst_row_indices = to.m_row_indices;
             auto& dst_col_indices = to.m_col_indices;
@@ -490,9 +488,9 @@ namespace details
                            auto row = src_row_index * N;
                            auto col = src_col_index * N;
 
-                           auto index = i * N2;
+                           auto index = i * MN;
 #pragma unroll
-                           for(int r = 0; r < N; ++r)
+                           for(int r = 0; r < M; ++r)
                            {
 #pragma unroll
                                for(int c = 0; c < N; ++c)
@@ -506,12 +504,10 @@ namespace details
                        });
         }
 
-        void sort_indices_and_values(const DeviceBCOOMatrix<T, N>& from,
-                                     DeviceCOOMatrix<T>& to) MUDA_REQUIRES(N > 1)
+        void sort_indices_and_values(const DeviceBCOOMatrix<T, M, N>& from,
+                                     DeviceCOOMatrix<T>& to) MUDA_REQUIRES(M* N > 1)
         {
-            static_assert(N > 1, "N must be greater than 1");
-
-            using namespace muda;
+            static_assert(M * N > 1, "M * N must be greater than 1");
 
             auto& row_indices = to.m_row_indices;
             auto& col_indices = to.m_col_indices;
@@ -556,25 +552,33 @@ namespace details
         }
 
         // BCOO -> BSR
-        void convert(const DeviceBCOOMatrix<T, N>& from, DeviceBSRMatrix<T, N>& to)
+        void convert(const DeviceBCOOMatrix<T, M, N>& from, DeviceBSRMatrix<T, N>& to)
+            MUDA_REQUIRES(M == N)
         {
+            static_assert(M == N, "M must be equal to N");
+
             calculate_block_offsets(from, to);
 
             to.m_col_indices = from.m_col_indices;
             to.m_values      = from.m_values;
         }
 
-        void convert(DeviceBCOOMatrix<T, N>&& from, DeviceBSRMatrix<T, N>& to)
+        void convert(DeviceBCOOMatrix<T, M, N>&& from, DeviceBSRMatrix<T, N>& to)
+            MUDA_REQUIRES(M == N)
         {
+            static_assert(M == N, "M must be equal to N");
+
             calculate_block_offsets(from, to);
+
             to.m_col_indices = std::move(from.m_col_indices);
             to.m_values      = std::move(from.m_values);
         }
 
-        void calculate_block_offsets(const DeviceBCOOMatrix<T, N>& from,
-                                     DeviceBSRMatrix<T, N>&        to)
+        void calculate_block_offsets(const DeviceBCOOMatrix<T, M, N>& from,
+                                     DeviceBSRMatrix<T, N>& to) MUDA_REQUIRES(M == N)
         {
-            using namespace muda;
+            static_assert(M == N, "M must be equal to N");
+
             to.reshape(from.rows(), from.cols());
 
             auto& dst_row_offsets = to.m_row_offsets;

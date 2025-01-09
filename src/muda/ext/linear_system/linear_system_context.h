@@ -90,22 +90,22 @@ class LinearSystemContext
                                               Converter
     ***********************************************************************************************/
     // Triplet -> BCOO
-    template <typename T, int N>
-    void convert(const DeviceTripletMatrix<T, N>& from, DeviceBCOOMatrix<T, N>& to);
+    template <typename T, int M, int N>
+    void convert(const DeviceTripletMatrix<T, M, N>& from, DeviceBCOOMatrix<T, M, N>& to);
 
     // BCOO -> Dense Matrix
-    template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from,
-                 DeviceDenseMatrix<T>&         to,
-                 bool                          clear_dense_matrix = true);
+    template <typename T, int M, int N>
+    void convert(const DeviceBCOOMatrix<T, M, N>& from,
+                 DeviceDenseMatrix<T>&            to,
+                 bool                             clear_dense_matrix = true);
 
     // BCOO -> COO
-    template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from, DeviceCOOMatrix<T>& to);
+    template <typename T, int M, int N>
+    void convert(const DeviceBCOOMatrix<T, M, N>& from, DeviceCOOMatrix<T>& to);
 
     // BCOO -> BSR
     template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from, DeviceBSRMatrix<T, N>& to);
+    void convert(const DeviceBCOOMatrix<T, N, N>& from, DeviceBSRMatrix<T, N>& to);
 
     // Doublet -> BCOO
     template <typename T, int N>
@@ -219,14 +219,14 @@ class LinearSystemContext
     template <typename T>
     void spmv(CCSRMatrixView<T> A, CDenseVectorView<T> x, DenseVectorView<T> y);
     // BCOO & Triplet
-    template <typename T, int N>
-    void spmv(const T&                 a,
-              CTripletMatrixView<T, N> A,
-              CDenseVectorView<T>      x,
-              const T&                 b,
-              DenseVectorView<T>&      y);
-    template <typename T, int N>
-    void spmv(CTripletMatrixView<T, N> A, CDenseVectorView<T> x, DenseVectorView<T> y);
+    template <typename T, int M, int N>
+    void spmv(const T&                    a,
+              CTripletMatrixView<T, M, N> A,
+              CDenseVectorView<T>         x,
+              const T&                    b,
+              DenseVectorView<T>&         y);
+    template <typename T, int M, int N>
+    void spmv(CTripletMatrixView<T, M, N> A, CDenseVectorView<T> x, DenseVectorView<T> y);
     // COO
     template <typename T>
     void spmv(const T& a, CCOOMatrixView<T> A, CDenseVectorView<T> x, const T& b, DenseVectorView<T>& y);

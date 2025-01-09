@@ -12,18 +12,19 @@
 namespace muda::details
 {
 class MatrixFormatConverterBase;
-template <typename T, int N>
+template <typename T, int M, int N>
 class MatrixFormatConverter;
 
 class MatrixFormatConverterType
 {
   public:
     cudaDataType_t data_type;
+    int            M;
     int            N;
     bool friend    operator==(const MatrixFormatConverterType& lhs,
                            const MatrixFormatConverterType& rhs)
     {
-        return lhs.data_type == rhs.data_type && lhs.N == rhs.N;
+        return lhs.data_type == rhs.data_type && lhs.M == rhs.M && lhs.N == rhs.N;
     }
 };
 }  // namespace muda::details
@@ -35,7 +36,8 @@ struct hash<muda::details::MatrixFormatConverterType>
 {
     size_t operator()(const muda::details::MatrixFormatConverterType& x) const
     {
-        return (std::hash<int>()(x.data_type) << 8) ^ std::hash<int>()(x.N);
+        return (std::hash<int>()(x.data_type) << 16)
+               ^ (std::hash<int>()(x.M) << 8) ^ std::hash<int>()(x.N);
     }
 };
 }  // namespace std
@@ -52,8 +54,8 @@ class MatrixFormatConverter
     using TypeN = std::pair<cudaDataType_t, int>;
     std::unordered_map<details::MatrixFormatConverterType, U<details::MatrixFormatConverterBase>> m_impls;
     details::MatrixFormatConverterBase* current = nullptr;
-    template <typename T, int N>
-    details::MatrixFormatConverter<T, N>& impl();
+    template <typename T, int M, int N>
+    details::MatrixFormatConverter<T, M, N>& impl();
 
   public:
     MatrixFormatConverter(LinearSystemHandles& handles)
@@ -63,22 +65,22 @@ class MatrixFormatConverter
     ~MatrixFormatConverter();
 
     // Triplet -> BCOO
-    template <typename T, int N>
-    void convert(const DeviceTripletMatrix<T, N>& from, DeviceBCOOMatrix<T, N>& to);
+    template <typename T, int M, int N>
+    void convert(const DeviceTripletMatrix<T, M, N>& from, DeviceBCOOMatrix<T, M, N>& to);
 
     // BCOO -> Dense Matrix
-    template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from,
-                 DeviceDenseMatrix<T>&         to,
-                 bool                          clear_dense_matrix = true);
+    template <typename T, int M, int N>
+    void convert(const DeviceBCOOMatrix<T, M, N>& from,
+                 DeviceDenseMatrix<T>&            to,
+                 bool                             clear_dense_matrix = true);
 
     // BCOO -> COO
-    template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from, DeviceCOOMatrix<T>& to);
+    template <typename T, int M, int N>
+    void convert(const DeviceBCOOMatrix<T, M, N>& from, DeviceCOOMatrix<T>& to);
 
     // BCOO -> BSR
     template <typename T, int N>
-    void convert(const DeviceBCOOMatrix<T, N>& from, DeviceBSRMatrix<T, N>& to);
+    void convert(const DeviceBCOOMatrix<T, N, N>& from, DeviceBSRMatrix<T, N>& to);
 
     // Doublet -> BCOO
     template <typename T, int N>

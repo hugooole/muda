@@ -1,34 +1,34 @@
 namespace muda
 {
 // Triplet -> BCOO
-template <typename T, int N>
-void LinearSystemContext::convert(const DeviceTripletMatrix<T, N>& from,
-                                  DeviceBCOOMatrix<T, N>&          to)
+template <typename T, int M, int N>
+void LinearSystemContext::convert(const DeviceTripletMatrix<T, M, N>& from,
+                                  DeviceBCOOMatrix<T, M, N>&          to)
 {
     m_converter.convert(from, to);
 }
 
 // BCOO -> Dense Matrix
-template <typename T, int N>
-void LinearSystemContext::convert(const DeviceBCOOMatrix<T, N>& from,
-                                  DeviceDenseMatrix<T>&         to,
+template <typename T, int M, int N>
+void LinearSystemContext::convert(const DeviceBCOOMatrix<T, M, N>& from,
+                                  DeviceDenseMatrix<T>&            to,
                                   bool clear_dense_matrix)
 {
     m_converter.convert(from, to, clear_dense_matrix);
 }
 
 // BCOO -> COO
-template <typename T, int N>
-void LinearSystemContext::convert(const DeviceBCOOMatrix<T, N>& from,
-                                  DeviceCOOMatrix<T>&           to)
+template <typename T, int M, int N>
+void LinearSystemContext::convert(const DeviceBCOOMatrix<T, M, N>& from,
+                                  DeviceCOOMatrix<T>&              to)
 {
     m_converter.convert(from, to);
 }
 
 // BCOO -> BSR
 template <typename T, int N>
-void LinearSystemContext::convert(const DeviceBCOOMatrix<T, N>& from,
-                                  DeviceBSRMatrix<T, N>&        to)
+void LinearSystemContext::convert(const DeviceBCOOMatrix<T, N, N>& from,
+                                  DeviceBSRMatrix<T, N>&           to)
 {
     m_converter.convert(from, to);
 }

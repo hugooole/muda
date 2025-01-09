@@ -4,21 +4,21 @@
 
 namespace muda::details
 {
-template <typename T, int N>
+template <typename T, int M, int N>
 class MatrixFormatConverter;
 }
 
 namespace muda
 {
-template <typename T, int N>
+template <typename T, int M, int N = M>
 class DeviceTripletMatrix
 {
   public:
-    template <typename U, int M>
+    template <typename U, int M_, int N_>
     friend class details::MatrixFormatConverter;
 
-    using ValueT = std::conditional_t<N == 1, T, Eigen::Matrix<T, N, N>>;
-    static constexpr bool IsBlockMatrix = (N > 1);
+    using ValueT = std::conditional_t<N == 1, T, Eigen::Matrix<T, M, N>>;
+    static constexpr bool IsBlockMatrix = (M != 1 && N != 1);
 
   protected:
     DeviceBuffer<ValueT> m_values;
@@ -78,12 +78,12 @@ class DeviceTripletMatrix
 
     auto view()
     {
-        return TripletMatrixView<T, N>{m_rows,
-                                       m_cols,
-                                       (int)m_values.size(),
-                                       m_row_indices.data(),
-                                       m_col_indices.data(),
-                                       m_values.data()};
+        return TripletMatrixView<T, M, N>{m_rows,
+                                          m_cols,
+                                          (int)m_values.size(),
+                                          m_row_indices.data(),
+                                          m_col_indices.data(),
+                                          m_values.data()};
     }
 
     auto view() const { return remove_const(*this).view().as_const(); }
@@ -94,8 +94,8 @@ class DeviceTripletMatrix
 
     auto cviewer() const { return view().cviewer(); }
 
-    operator TripletMatrixView<T, N>() { return view(); }
-    operator CTripletMatrixView<T, N>() const { return view(); }
+    operator TripletMatrixView<T, M, N>() { return view(); }
+    operator CTripletMatrixView<T, M, N>() const { return view(); }
 
     void clear()
     {

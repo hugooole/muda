@@ -6,7 +6,7 @@
 
 namespace muda::details
 {
-template <typename T, int N>
+template <typename T, int M, int N>
 class MatrixFormatConverter;
 }
 
