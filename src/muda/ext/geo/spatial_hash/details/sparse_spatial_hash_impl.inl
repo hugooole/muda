@@ -326,7 +326,7 @@ void SparseSpatialHashImpl<Hash>::simple_count_collision_pairs(Pred&& pred)
         auto lastOffset = validCellCount;
 
         BufferLaunch(m_stream)  //
-            .copy(&sum, collisionPairPrefixSum.view(lastOffset))
+            .copy(&sum, std::as_const(collisionPairPrefixSum).view(lastOffset))
             .wait();
     }
     else

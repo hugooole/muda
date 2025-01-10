@@ -43,14 +43,14 @@ class DeviceBCOOMatrix<Ty, 1, 1> : public DeviceTripletMatrix<Ty, 1, 1>
     ~DeviceBCOOMatrix() { destroy_all_descr(); }
 
     DeviceBCOOMatrix(const DeviceBCOOMatrix& other)
-        : DeviceTripletMatrix<Ty, 1>{other}
+        : DeviceTripletMatrix<Ty, 1, 1>{other}
         , m_legacy_descr{nullptr}
         , m_descr{nullptr}
     {
     }
 
     DeviceBCOOMatrix(DeviceBCOOMatrix&& other)
-        : DeviceTripletMatrix<Ty, 1>{std::move(other)}
+        : DeviceTripletMatrix<Ty, 1, 1>{std::move(other)}
         , m_legacy_descr{other.m_legacy_descr}
         , m_descr{other.m_descr}
     {
@@ -62,7 +62,7 @@ class DeviceBCOOMatrix<Ty, 1, 1> : public DeviceTripletMatrix<Ty, 1, 1>
     {
         if(this == &other)
             return *this;
-        DeviceTripletMatrix<Ty, 1>::operator=(other);
+        DeviceTripletMatrix<Ty, 1, 1>::operator=(other);
         destroy_all_descr();
         m_legacy_descr = nullptr;
         m_descr        = nullptr;
@@ -73,7 +73,7 @@ class DeviceBCOOMatrix<Ty, 1, 1> : public DeviceTripletMatrix<Ty, 1, 1>
     {
         if(this == &other)
             return *this;
-        DeviceTripletMatrix<Ty, 1>::operator=(std::move(other));
+        DeviceTripletMatrix<Ty, 1, 1>::operator=(std::move(other));
         destroy_all_descr();
         m_legacy_descr       = other.m_legacy_descr;
         m_descr              = other.m_descr;

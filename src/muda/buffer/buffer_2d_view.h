@@ -96,7 +96,7 @@ class Buffer2DViewT : public ViewBase<IsConst>
     MUDA_HOST void copy_from(const T* host) MUDA_REQUIRES(!IsConst);
 
   private:
-    MUDA_HOST cudaPitchedPtr cuda_pitched_ptr() const MUDA_NOEXCEPT;
+    MUDA_GENERIC cudaPitchedPtr cuda_pitched_ptr() const MUDA_NOEXCEPT;
 };
 
 template <typename T>
