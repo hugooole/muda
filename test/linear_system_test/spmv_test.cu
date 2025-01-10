@@ -22,7 +22,7 @@ void test_sparse_matrix(int row_size, int col_size, int non_zero_count)
 
     // setup device vector
     DeviceDenseVector<T> x = dense_x;
-    DeviceDenseVector<T> b(dimensionN);
+    DeviceDenseVector<T> b(dimensionM);
 
     std::vector<int> row_indices(non_zero_count);
     std::vector<int> col_indices(non_zero_count);
@@ -150,5 +150,37 @@ TEST_CASE("spmv", "[linear_system]")
     test_sparse_matrix<float, 12, 12>(1000, 1000, 7992);
 
     test_sparse_matrix<float, 3, 1>(10, 10, 40);
+    test_sparse_matrix<float, 3, 1>(100, 100, 400);
+    test_sparse_matrix<float, 3, 1>(1000, 1000, 4000);
+
+
     test_sparse_matrix<float, 1, 3>(10, 10, 40);
+    test_sparse_matrix<float, 1, 3>(100, 100, 400);
+    test_sparse_matrix<float, 1, 3>(1000, 1000, 4000);
+
+
+    test_sparse_matrix<float, 3, 2>(10, 10, 40);
+    test_sparse_matrix<float, 3, 2>(100, 100, 400);
+    test_sparse_matrix<float, 3, 2>(1000, 1000, 4000);
+
+
+    test_sparse_matrix<float, 2, 3>(10, 10, 40);
+    test_sparse_matrix<float, 2, 3>(100, 100, 400);
+    test_sparse_matrix<float, 2, 3>(1000, 1000, 4000);
+
+    test_sparse_matrix<float, 12, 1>(10, 10, 24);
+    test_sparse_matrix<float, 12, 1>(100, 100, 637);
+    test_sparse_matrix<float, 12, 1>(1000, 1000, 7456);
+
+    test_sparse_matrix<float, 1, 12>(10, 10, 24);
+    test_sparse_matrix<float, 1, 12>(100, 100, 537);
+    test_sparse_matrix<float, 1, 12>(1000, 1000, 7456);
+
+    test_sparse_matrix<float, 12, 3>(10, 10, 24);
+    test_sparse_matrix<float, 12, 3>(100, 100, 637);
+    test_sparse_matrix<float, 12, 3>(1000, 1000, 7456);
+
+    test_sparse_matrix<float, 3, 12>(10, 10, 24);
+    test_sparse_matrix<float, 3, 12>(100, 100, 637);
+    test_sparse_matrix<float, 3, 12>(1000, 1000, 7456);
 }

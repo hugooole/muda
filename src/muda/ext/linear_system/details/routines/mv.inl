@@ -7,8 +7,12 @@ namespace details::linear_system
                                      CDenseVectorView<T> x,
                                      DenseVectorView<T>  y)
     {
-        MUDA_ASSERT(A.col() == y.size(), "A.col() must be equal to y.size()");
-        MUDA_ASSERT(A.row() == x.size(), "A.row() must be equal to x.size()");
+        MUDA_ASSERT(A.col() == x.size() && A.row() == y.size(),
+                    "Dimension mismatch in MV, A -> (%d, %d), x -> (%d), y -> (%d)",
+                    A.row(),
+                    A.col(),
+                    x.size(),
+                    y.size());
         MUDA_ASSERT(A.data(), "Matrix A is empty");
         MUDA_ASSERT(x.data(), "Vector x is empty");
         MUDA_ASSERT(y.data(), "Vector y is empty");

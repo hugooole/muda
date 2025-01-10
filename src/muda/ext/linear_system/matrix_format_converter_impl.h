@@ -158,7 +158,7 @@ namespace details
             }
         }
 
-        void radix_sort_indices_and_blocks(const DeviceTripletMatrix<T, N>& from,
+        void radix_sort_indices_and_blocks(const DeviceTripletMatrix<T, M, N>& from,
                                            DeviceBCOOMatrix<T, M, N>& to)
         {
             auto src_row_indices = from.row_indices();
@@ -415,8 +415,9 @@ namespace details
                      bool                             clear_dense_matrix = true)
         {
             using namespace muda;
-            auto size = N * from.rows();
-            to.reshape(size, size);
+            auto dst_rows = M * from.rows();
+            auto dst_cols = N * from.cols();
+            to.reshape(dst_rows, dst_cols);
 
             if(clear_dense_matrix)
                 to.fill(0);
@@ -428,16 +429,16 @@ namespace details
                         dst = to.viewer().name("dst_dense_matrix")] __device__(int i) mutable
                        {
                            auto triplet = triplets(i);
-                           auto row     = triplet.row_index * N;
+                           auto row     = triplet.row_index * M;
                            auto col     = triplet.col_index * N;
 
-                           if constexpr(N == 1)
+                           if constexpr(M == 1 && N == 1)
                            {
                                dst(row, col) += triplet.value;
                            }
                            else
                            {
-                               dst.block<N, N>(row, col).as_eigen() += triplet.value;
+                               dst.block<M, N>(row, col).as_eigen() += triplet.value;
                            }
                        });
         }
@@ -458,7 +459,7 @@ namespace details
 
             constexpr int MN = M * N;
 
-            to.reshape(from.rows() * N, from.cols() * N);
+            to.reshape(from.rows() * M, from.cols() * N);
             to.resize_triplets(from.non_zeros() * MN);
 
             auto& dst_row_indices = to.m_row_indices;
@@ -485,7 +486,7 @@ namespace details
                            auto src_col_index = src_col_indices(i);
                            auto src_value     = src_values(i);
 
-                           auto row = src_row_index * N;
+                           auto row = src_row_index * M;
                            auto col = src_col_index * N;
 
                            auto index = i * MN;
@@ -751,7 +752,7 @@ namespace details
         }
 
 
-        // Triplet -> Dense Vector
+        // Doublet -> Dense Vector
         void convert(const DeviceDoubletVector<T, N>& from,
                      DeviceDenseVector<T>&            to,
                      bool                             clear_dense_vector = true)

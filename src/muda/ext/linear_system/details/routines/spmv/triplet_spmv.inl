@@ -63,6 +63,6 @@ void muda::LinearSystemContext::spmv(CTripletMatrixView<T, M, N> A,
                                      CDenseVectorView<T>         x,
                                      DenseVectorView<T>          y)
 {
-    spmv<T, N>(T{1}, A, x, T{0}, y);
+    spmv<T, M, N>(T{1}, A, x, T{0}, y);
 }
 }  // namespace muda

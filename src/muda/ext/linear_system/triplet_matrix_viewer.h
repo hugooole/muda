@@ -25,8 +25,10 @@ class TripletMatrixViewerT : public ViewerBase<IsConst>
     MUDA_VIEWER_COMMON_NAME(TripletMatrixViewerT);
 
   public:
-    using ValueT      = std::conditional_t<N == 1, T, Eigen::Matrix<T, M, N>>;
-    using ConstViewer = TripletMatrixViewerT<true, T, M, N>;
+    static constexpr bool IsBlockMatrix = (M > 1 || N > 1);
+    using ValueT = std::conditional_t<IsBlockMatrix, Eigen::Matrix<T, M, N>, T>;
+
+    using ConstViewer    = TripletMatrixViewerT<true, T, M, N>;
     using NonConstViewer = TripletMatrixViewerT<false, T, M, N>;
     using ThisViewer     = TripletMatrixViewerT<IsConst, T, M, N>;
 

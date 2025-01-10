@@ -17,8 +17,9 @@ class DeviceTripletMatrix
     template <typename U, int M_, int N_>
     friend class details::MatrixFormatConverter;
 
-    using ValueT = std::conditional_t<N == 1, T, Eigen::Matrix<T, M, N>>;
-    static constexpr bool IsBlockMatrix = (M != 1 && N != 1);
+    static constexpr bool IsBlockMatrix = (M > 1 || N > 1);
+    using ValueT = std::conditional_t<IsBlockMatrix, Eigen::Matrix<T, M, N>, T>;
+
 
   protected:
     DeviceBuffer<ValueT> m_values;
