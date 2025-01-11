@@ -4,9 +4,9 @@
 
 namespace muda
 {
-template <typename T, int M, int N>
+template <typename T, int M, int N = M>
 using BCOOMatrixView = TripletMatrixView<T, M, N>;
-template <typename T, int M, int N>
+template <typename T, int M, int N = M>
 using CBCOOMatrixView = CTripletMatrixView<T, M, N>;
 }  // namespace muda
 

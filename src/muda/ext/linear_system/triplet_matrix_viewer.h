@@ -281,10 +281,10 @@ class TripletMatrixViewerT : public ViewerBase<IsConst>
     }
 };
 
-template <typename T, int M, int N>
+template <typename T, int M, int N = M>
 using TripletMatrixViewer = TripletMatrixViewerT<false, T, M, N>;
 
-template <typename T, int M, int N>
+template <typename T, int M, int N = M>
 using CTripletMatrixViewer = TripletMatrixViewerT<true, T, M, N>;
 }  // namespace muda
 

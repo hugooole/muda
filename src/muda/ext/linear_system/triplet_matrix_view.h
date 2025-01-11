@@ -254,9 +254,9 @@ class TripletMatrixViewT : public ViewBase<IsConst>
     }
 };
 
-template <typename Ty, int M, int N>
+template <typename Ty, int M, int N = M>
 using TripletMatrixView = TripletMatrixViewT<false, Ty, M, N>;
-template <typename Ty, int M, int N>
+template <typename Ty, int M, int N = M>
 using CTripletMatrixView = TripletMatrixViewT<true, Ty, M, N>;
 }  // namespace muda
 
