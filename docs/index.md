@@ -255,9 +255,9 @@ Launch()
     .apply(
     [
         single  = single.viewer().name("single"), // give a name for more readable debug info
-        array   = buffer.viewer().name("array"),
-        array2d = buffer_2d.viewer().name("array2d"),
-        array3d = buffer_3d.viewer().name("array3d"),
+        array   = array.viewer().name("array"),
+        array2d = array2d.viewer().name("array2d"),
+        array3d = array3d.viewer().name("array3d"),
         logger  = logger.viewer(),
         ...
     ] __device__ () mutable
