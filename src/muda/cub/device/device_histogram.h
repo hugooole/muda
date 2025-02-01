@@ -27,16 +27,8 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                    LevelT          upper_level,
                                    OffsetT         num_samples)
     {
-        MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::HistogramEven(d_temp_storage,
-                                                                  temp_storage_bytes,
-                                                                  d_samples,
-                                                                  d_histogram,
-                                                                  num_levels,
-                                                                  lower_level,
-                                                                  upper_level,
-                                                                  num_samples,
-                                                                  _stream,
-                                                                  false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::HistogramEven(
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_samples, _stream));
     }
 
     // HistogramEven (single channel, 2D input)
@@ -60,8 +52,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                                   num_row_samples,
                                                                   num_rows,
                                                                   row_stride_bytes,
-                                                                  _stream,
-                                                                  false));
+                                                                  _stream));
     }
 
     // MultiHistogramEven (multiple channels, 1D input)
@@ -73,16 +64,8 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                         LevelT upper_level[NUM_ACTIVE_CHANNELS],
                                         OffsetT num_pixels)
     {
-        MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::MultiHistogramEven(d_temp_storage,
-                                                                       temp_storage_bytes,
-                                                                       d_samples,
-                                                                       d_histogram,
-                                                                       num_levels,
-                                                                       lower_level,
-                                                                       upper_level,
-                                                                       num_pixels,
-                                                                       _stream,
-                                                                       false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::MultiHistogramEven(
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_pixels, _stream));
     }
 
     // MultiHistogramEven (multiple channels, 2D input)
@@ -107,8 +90,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                      num_row_pixels,
                                                      num_rows,
                                                      row_stride_bytes,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
     // HistogramRange (single channel, 1D input)
@@ -120,7 +102,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                     OffsetT         num_samples)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::HistogramRange(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_samples, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_samples, _stream));
     }
 
     // HistogramRange (single channel, 2D input)
@@ -142,8 +124,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                                    num_row_samples,
                                                                    num_rows,
                                                                    row_stride_bytes,
-                                                                   _stream,
-                                                                   false));
+                                                                   _stream));
     }
 
     // MultiHistogramRange (multiple channels, 1D input)
@@ -155,7 +136,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                          OffsetT num_pixels)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceHistogram::MultiHistogramRange(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_pixels, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_pixels, _stream));
     }
 
     // MultiHistogramRange (multiple channels, 2D input)
@@ -178,8 +159,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                       num_row_pixels,
                                                       num_rows,
                                                       row_stride_bytes,
-                                                      _stream,
-                                                      false));
+                                                      _stream));
     }
 
     // Origin:
@@ -196,7 +176,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                    OffsetT         num_samples)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceHistogram::HistogramEven(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_samples, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_samples, _stream));
     }
 
     // HistogramEven (single channel, 2D input)
@@ -223,8 +203,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                 num_row_samples,
                                                 num_rows,
                                                 row_stride_bytes,
-                                                _stream,
-                                                false));
+                                                _stream));
     }
 
     // MultiHistogramEven (multiple channels, 1D input)
@@ -239,7 +218,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                         OffsetT num_pixels)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceHistogram::MultiHistogramEven(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_pixels, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, lower_level, upper_level, num_pixels, _stream));
     }
 
     // MultiHistogramEven (multiple channels, 2D input)
@@ -266,8 +245,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                      num_row_pixels,
                                                      num_rows,
                                                      row_stride_bytes,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
     // HistogramRange (single channel, 1D input)
@@ -281,7 +259,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                     OffsetT         num_samples)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceHistogram::HistogramRange(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_samples, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_samples, _stream));
     }
 
     // HistogramRange (single channel, 2D input)
@@ -306,8 +284,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                  num_row_samples,
                                                  num_rows,
                                                  row_stride_bytes,
-                                                 _stream,
-                                                 false));
+                                                 _stream));
     }
 
     // MultiHistogramRange (multiple channels, 1D input)
@@ -321,7 +298,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                          OffsetT num_pixels)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceHistogram::MultiHistogramRange(
-            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_pixels, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_samples, d_histogram, num_levels, d_levels, num_pixels, _stream));
     }
 
     // MultiHistogramRange (multiple channels, 2D input)
@@ -346,8 +323,7 @@ class DeviceHistogram : public CubWrapper<DeviceHistogram>
                                                       num_row_pixels,
                                                       num_rows,
                                                       row_stride_bytes,
-                                                      _stream,
-                                                      false));
+                                                      _stream));
     }
 };
 }  // namespace muda

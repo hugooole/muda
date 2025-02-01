@@ -26,42 +26,38 @@ class DeviceAdjacentDifference : public CubWrapper<DeviceAdjacentDifference>
     DeviceAdjacentDifference& SubtractLeftCopy(InputIteratorT  d_in,
                                                OutputIteratorT d_out,
                                                int             num_items,
-                                               DifferenceOpT difference_op = {},
-                                               bool debug_synchronous = false)
+                                               DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceAdjacentDifference::SubtractLeftCopy(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream));
     }
 
     template <typename RandomAccessIteratorT, typename DifferenceOpT = cub::Difference>
     DeviceAdjacentDifference& SubtractLeft(RandomAccessIteratorT d_in,
                                            int                   num_items,
-                                           DifferenceOpT difference_op = {},
-                                           bool debug_synchronous      = false)
+                                           DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceAdjacentDifference::SubtractLeft(
-            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename DifferenceOpT = cub::Difference>
     DeviceAdjacentDifference& SubtractRightCopy(InputIteratorT  d_in,
                                                 OutputIteratorT d_out,
                                                 int             num_items,
-                                                DifferenceOpT difference_op = {},
-                                                bool debug_synchronous = false)
+                                                DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceAdjacentDifference::SubtractRightCopy(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream));
     }
 
     template <typename RandomAccessIteratorT, typename DifferenceOpT = cub::Difference>
     DeviceAdjacentDifference& SubtractRight(RandomAccessIteratorT d_in,
                                             int                   num_items,
-                                            DifferenceOpT difference_op = {},
-                                            bool debug_synchronous      = false)
+                                            DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceAdjacentDifference::SubtractRight(
-            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream));
     }
 
     // Origin:
@@ -72,11 +68,10 @@ class DeviceAdjacentDifference : public CubWrapper<DeviceAdjacentDifference>
                                                InputIteratorT  d_in,
                                                OutputIteratorT d_out,
                                                int             num_items,
-                                               DifferenceOpT difference_op = {},
-                                               bool debug_synchronous = false)
+                                               DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceAdjacentDifference::SubtractLeftCopy(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream));
     }
 
     template <typename RandomAccessIteratorT, typename DifferenceOpT = cub::Difference>
@@ -84,11 +79,10 @@ class DeviceAdjacentDifference : public CubWrapper<DeviceAdjacentDifference>
                                            size_t& temp_storage_bytes,
                                            RandomAccessIteratorT d_in,
                                            int                   num_items,
-                                           DifferenceOpT difference_op = {},
-                                           bool debug_synchronous      = false)
+                                           DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceAdjacentDifference::SubtractLeft(
-            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename DifferenceOpT = cub::Difference>
@@ -97,11 +91,10 @@ class DeviceAdjacentDifference : public CubWrapper<DeviceAdjacentDifference>
                                                 InputIteratorT  d_in,
                                                 OutputIteratorT d_out,
                                                 int             num_items,
-                                                DifferenceOpT difference_op = {},
-                                                bool debug_synchronous = false)
+                                                DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceAdjacentDifference::SubtractRightCopy(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, difference_op, _stream));
     }
 
     template <typename RandomAccessIteratorT, typename DifferenceOpT = cub::Difference>
@@ -109,11 +102,10 @@ class DeviceAdjacentDifference : public CubWrapper<DeviceAdjacentDifference>
                                             size_t& temp_storage_bytes,
                                             RandomAccessIteratorT d_in,
                                             int                   num_items,
-                                            DifferenceOpT difference_op = {},
-                                            bool debug_synchronous      = false)
+                                            DifferenceOpT difference_op = {})
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceAdjacentDifference::SubtractRight(
-            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream, debug_synchronous));
+            d_temp_storage, temp_storage_bytes, d_in, num_items, difference_op, _stream));
     }
 };
 }  // namespace muda

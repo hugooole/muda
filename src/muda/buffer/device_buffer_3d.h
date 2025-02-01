@@ -1,4 +1,4 @@
-/*****************************************************************//**
+/*****************************************************************/ /**
  * \file   device_buffer_3d.h
  * \brief  A light-weight wrapper of cuda device memory3D,
  * allows user to resize, reserve, shrink_to_fit, fill, also provide muda viewer
@@ -45,8 +45,11 @@ class DeviceBuffer3D
     DeviceBuffer3D(CBuffer3DView<T> other);
     DeviceBuffer3D& operator=(CBuffer3DView<T> other);
 
-    void copy_to(std::vector<T>& host) const;
-    void copy_from(const std::vector<T>& host);
+    template <typename Alloc>
+    void copy_to(std::vector<T, Alloc>& host) const;
+
+    template <typename Alloc>
+    void copy_from(const std::vector<T, Alloc>& host);
 
     void resize(Extent3D new_size);
     void resize(Extent3D new_size, const T& value);

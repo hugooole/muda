@@ -25,14 +25,14 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
                          T               init)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::Reduce(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, reduction_op, init, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, reduction_op, init, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT>
     DeviceReduce& Sum(InputIteratorT d_in, OutputIteratorT d_out, int num_items)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::Sum(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
 
@@ -40,7 +40,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     DeviceReduce& Min(InputIteratorT d_in, OutputIteratorT d_out, int num_items)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::Min(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
 
@@ -48,7 +48,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     DeviceReduce& ArgMin(InputIteratorT d_in, OutputIteratorT d_out, int num_items)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::ArgMin(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
 
@@ -57,7 +57,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     {
 
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::Max(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
 
@@ -65,7 +65,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     DeviceReduce& ArgMax(InputIteratorT d_in, OutputIteratorT d_out, int num_items)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceReduce::ArgMax(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename KeysInputIteratorT, typename UniqueOutputIteratorT, typename ValuesInputIteratorT, typename AggregatesOutputIteratorT, typename NumRunsOutputIteratorT, typename ReductionOpT>
@@ -102,7 +102,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     {
 
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::Reduce(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, reduction_op, init, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, reduction_op, init, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT>
@@ -113,7 +113,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
                       int             num_items)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::Sum(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
 
@@ -125,7 +125,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
                       int             num_items)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::Min(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT>
@@ -136,7 +136,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
                          int             num_items)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::ArgMin(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT>
@@ -148,7 +148,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
     {
 
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::Max(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT>
@@ -159,7 +159,7 @@ class DeviceReduce : public CubWrapper<DeviceReduce>
                          int             num_items)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceReduce::ArgMax(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename KeysInputIteratorT, typename UniqueOutputIteratorT, typename ValuesInputIteratorT, typename AggregatesOutputIteratorT, typename NumRunsOutputIteratorT, typename ReductionOpT>

@@ -31,8 +31,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                                  num_segments,
                                                                  d_begin_offsets,
                                                                  d_end_offsets,
-                                                                 _stream,
-                                                                 false));
+                                                                 _stream));
     }
 
     template <typename KeyT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -43,17 +42,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                             BeginOffsetIteratorT d_begin_offsets,
                                             EndOffsetIteratorT d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_IMPL(
-            cub::DeviceSegmentedSort::SortKeysDescending(d_temp_storage,
-                                                         temp_storage_bytes,
-                                                         d_keys_in,
-                                                         d_keys_out,
-                                                         num_items,
-                                                         num_segments,
-                                                         d_begin_offsets,
-                                                         d_end_offsets,
-                                                         _stream,
-                                                         false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortKeysDescending(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -65,7 +55,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                   EndOffsetIteratorT       d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortKeys(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -77,7 +67,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                             EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortKeysDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -89,16 +79,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                         BeginOffsetIteratorT d_begin_offsets,
                                         EndOffsetIteratorT   d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortKeys(d_temp_storage,
-                                                                       temp_storage_bytes,
-                                                                       d_keys_in,
-                                                                       d_keys_out,
-                                                                       num_items,
-                                                                       num_segments,
-                                                                       d_begin_offsets,
-                                                                       d_end_offsets,
-                                                                       _stream,
-                                                                       false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortKeys(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -110,17 +92,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                   BeginOffsetIteratorT d_begin_offsets,
                                                   EndOffsetIteratorT d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_IMPL(
-            cub::DeviceSegmentedSort::StableSortKeysDescending(d_temp_storage,
-                                                               temp_storage_bytes,
-                                                               d_keys_in,
-                                                               d_keys_out,
-                                                               num_items,
-                                                               num_segments,
-                                                               d_begin_offsets,
-                                                               d_end_offsets,
-                                                               _stream,
-                                                               false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortKeysDescending(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -132,7 +105,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                         EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortKeys(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -144,7 +117,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                   EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortKeysDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -168,8 +141,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                                   num_segments,
                                                                   d_begin_offsets,
                                                                   d_end_offsets,
-                                                                  _stream,
-                                                                  false));
+                                                                  _stream));
     }
 
 
@@ -194,8 +166,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                           num_segments,
                                                           d_begin_offsets,
                                                           d_end_offsets,
-                                                          _stream,
-                                                          false));
+                                                          _stream));
     }
 
     template <typename KeyT, typename ValueT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -206,16 +177,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                    BeginOffsetIteratorT       d_begin_offsets,
                                    EndOffsetIteratorT         d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortPairs(d_temp_storage,
-                                                                  temp_storage_bytes,
-                                                                  d_keys,
-                                                                  d_values,
-                                                                  num_items,
-                                                                  num_segments,
-                                                                  d_begin_offsets,
-                                                                  d_end_offsets,
-                                                                  _stream,
-                                                                  false));
+        MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortPairs(
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -228,7 +191,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                              EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::SortPairsDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -253,8 +216,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                       num_segments,
                                                       d_begin_offsets,
                                                       d_end_offsets,
-                                                      _stream,
-                                                      false));
+                                                      _stream));
     }
 
 
@@ -279,8 +241,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                                 num_segments,
                                                                 d_begin_offsets,
                                                                 d_end_offsets,
-                                                                _stream,
-                                                                false));
+                                                                _stream));
     }
 
 
@@ -293,7 +254,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                          EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortPairs(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -306,7 +267,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                    EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedSort::StableSortPairsDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     // Origin:
@@ -321,17 +282,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                   BeginOffsetIteratorT d_begin_offsets,
                                   EndOffsetIteratorT   d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedSort::SortKeys(d_temp_storage,
-                                               temp_storage_bytes,
-                                               d_keys_in,
-                                               d_keys_out,
-                                               num_items,
-                                               num_segments,
-                                               d_begin_offsets,
-                                               d_end_offsets,
-                                               _stream,
-                                               false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortKeys(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename KeyT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -344,17 +296,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                             BeginOffsetIteratorT d_begin_offsets,
                                             EndOffsetIteratorT d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedSort::SortKeysDescending(d_temp_storage,
-                                                         temp_storage_bytes,
-                                                         d_keys_in,
-                                                         d_keys_out,
-                                                         num_items,
-                                                         num_segments,
-                                                         d_begin_offsets,
-                                                         d_end_offsets,
-                                                         _stream,
-                                                         false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortKeysDescending(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -368,7 +311,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                   EndOffsetIteratorT       d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortKeys(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -382,7 +325,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                             EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortKeysDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -396,17 +339,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                         BeginOffsetIteratorT d_begin_offsets,
                                         EndOffsetIteratorT   d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedSort::StableSortKeys(d_temp_storage,
-                                                     temp_storage_bytes,
-                                                     d_keys_in,
-                                                     d_keys_out,
-                                                     num_items,
-                                                     num_segments,
-                                                     d_begin_offsets,
-                                                     d_end_offsets,
-                                                     _stream,
-                                                     false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortKeys(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -420,17 +354,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                   BeginOffsetIteratorT d_begin_offsets,
                                                   EndOffsetIteratorT d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedSort::StableSortKeysDescending(d_temp_storage,
-                                                               temp_storage_bytes,
-                                                               d_keys_in,
-                                                               d_keys_out,
-                                                               num_items,
-                                                               num_segments,
-                                                               d_begin_offsets,
-                                                               d_end_offsets,
-                                                               _stream,
-                                                               false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortKeysDescending(
+            d_temp_storage, temp_storage_bytes, d_keys_in, d_keys_out, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -444,7 +369,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                         EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortKeys(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -458,7 +383,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                   EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortKeysDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -485,8 +410,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                 num_segments,
                                                 d_begin_offsets,
                                                 d_end_offsets,
-                                                _stream,
-                                                false));
+                                                _stream));
     }
 
 
@@ -513,8 +437,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                           num_segments,
                                                           d_begin_offsets,
                                                           d_end_offsets,
-                                                          _stream,
-                                                          false));
+                                                          _stream));
     }
 
     template <typename KeyT, typename ValueT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -528,7 +451,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                    EndOffsetIteratorT         d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortPairs(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -543,7 +466,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                              EndOffsetIteratorT d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::SortPairsDescending(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -570,8 +493,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                       num_segments,
                                                       d_begin_offsets,
                                                       d_end_offsets,
-                                                      _stream,
-                                                      false));
+                                                      _stream));
     }
 
 
@@ -598,8 +520,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                                 num_segments,
                                                                 d_begin_offsets,
                                                                 d_end_offsets,
-                                                                _stream,
-                                                                false));
+                                                                _stream));
     }
 
 
@@ -614,7 +535,7 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                          EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortPairs(
-            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -628,17 +549,8 @@ class DeviceSegmentedSort : public CubWrapper<DeviceSegmentedSort>
                                                    BeginOffsetIteratorT d_begin_offsets,
                                                    EndOffsetIteratorT d_end_offsets)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedSort::StableSortPairsDescending(d_temp_storage,
-                                                                temp_storage_bytes,
-                                                                d_keys,
-                                                                d_values,
-                                                                num_items,
-                                                                num_segments,
-                                                                d_begin_offsets,
-                                                                d_end_offsets,
-                                                                _stream,
-                                                                false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedSort::StableSortPairsDescending(
+            d_temp_storage, temp_storage_bytes, d_keys, d_values, num_items, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 };
 }  // namespace muda

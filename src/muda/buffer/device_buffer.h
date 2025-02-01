@@ -1,4 +1,4 @@
-/*****************************************************************//**
+/*****************************************************************/ /**
  * \file   device_buffer.h
  * \brief  A light-weight wrapper of cuda device memory. Like `std::vector`,
  * allow user to resize, reserve, shrink_to_fit, fill, also provide muda viewer
@@ -68,8 +68,10 @@ class DeviceBuffer
     DeviceBuffer& operator=(CBufferView<T> other);
     DeviceBuffer& operator=(const std::vector<T>& other);
 
-    void copy_to(std::vector<T>& host) const;
-    void copy_from(const std::vector<T>& host);
+    template <typename Alloc>
+    void copy_to(std::vector<T, Alloc>& host) const;
+    template <typename Alloc>
+    void copy_from(const std::vector<T, Alloc>& host);
 
     void resize(size_t new_size);
     void resize(size_t new_size, const T& value);

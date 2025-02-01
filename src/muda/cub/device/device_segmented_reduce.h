@@ -35,8 +35,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                                                  d_end_offsets,
                                                                  reduction_op,
                                                                  initial_value,
-                                                                 _stream,
-                                                                 false));
+                                                                 _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -47,7 +46,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedReduce::Sum(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -58,7 +57,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedReduce::Min(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -69,7 +68,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedReduce::ArgMin(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -80,7 +79,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedReduce::Max(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -91,7 +90,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_IMPL(cub::DeviceSegmentedReduce::ArgMax(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     // Origin:
@@ -107,18 +106,8 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   ReductionOp          reduction_op,
                                   T                    initial_value)
     {
-        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(
-            cub::DeviceSegmentedReduce::Reduce(d_temp_storage,
-                                               temp_storage_bytes,
-                                               d_in,
-                                               d_out,
-                                               num_segments,
-                                               d_begin_offsets,
-                                               d_end_offsets,
-                                               reduction_op,
-                                               initial_value,
-                                               _stream,
-                                               false));
+        MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::Reduce(
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, reduction_op, initial_value, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -131,7 +120,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::Sum(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -144,7 +133,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::Min(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -157,7 +146,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::ArgMin(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -170,7 +159,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::Max(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 
 
@@ -182,7 +171,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   int             num_items)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::ArgMax(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_items, _stream));
     }
 
     template <typename InputIteratorT, typename OutputIteratorT, typename BeginOffsetIteratorT, typename EndOffsetIteratorT>
@@ -195,7 +184,7 @@ class DeviceSegmentedReduce : public CubWrapper<DeviceSegmentedReduce>
                                   EndOffsetIteratorT   d_end_offsets)
     {
         MUDA_CUB_WRAPPER_FOR_COMPUTE_GRAPH_IMPL(cub::DeviceSegmentedReduce::ArgMax(
-            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream, false));
+            d_temp_storage, temp_storage_bytes, d_in, d_out, num_segments, d_begin_offsets, d_end_offsets, _stream));
     }
 };
 }  // namespace muda

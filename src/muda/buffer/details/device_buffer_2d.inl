@@ -99,7 +99,8 @@ DeviceBuffer2D<T>& DeviceBuffer2D<T>::operator=(CBuffer2DView<T> other)
 
 
 template <typename T>
-void DeviceBuffer2D<T>::copy_to(std::vector<T>& host) const
+template <typename Alloc>
+void DeviceBuffer2D<T>::copy_to(std::vector<T, Alloc>& host) const
 {
     host.resize(total_size());
     view().copy_to(host.data());
@@ -107,7 +108,8 @@ void DeviceBuffer2D<T>::copy_to(std::vector<T>& host) const
 
 
 template <typename T>
-void DeviceBuffer2D<T>::copy_from(const std::vector<T>& host)
+template <typename Alloc>
+void DeviceBuffer2D<T>::copy_from(const std::vector<T, Alloc>& host)
 {
     MUDA_ASSERT(host.size() == total_size(),
                 "Need eqaul total size, host_size=%d, total_size=%d",

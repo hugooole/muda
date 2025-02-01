@@ -116,14 +116,16 @@ DeviceBuffer<T>& DeviceBuffer<T>::operator=(const std::vector<T>& other)
 }
 
 template <typename T>
-void DeviceBuffer<T>::copy_to(std::vector<T>& host) const
+template <typename Alloc>
+void DeviceBuffer<T>::copy_to(std::vector<T, Alloc>& host) const
 {
     host.resize(size());
     view().copy_to(host.data());
 }
 
 template <typename T>
-void DeviceBuffer<T>::copy_from(const std::vector<T>& host)
+template <typename Alloc>
+void DeviceBuffer<T>::copy_from(const std::vector<T, Alloc>& host)
 {
     resize(host.size());
     view().copy_from(host.data());

@@ -95,7 +95,7 @@ If you manually copy the header files, don't forget to define the macros yoursel
 ## Tutorial
 
 - [tutorial_zh](https://zhuanlan.zhihu.com/p/659664377)
-- If you need an English version tutorial, please get in touch with me or post an issue to let me know.
+- [tutorial_en](https://mugdxy.github.io/muda-doc/tutorial/tutorial/)
 
 ## Documentation
 

@@ -40,8 +40,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                      d_end_offsets,
                                                      begin_bit,
                                                      end_bit,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
 
@@ -65,8 +64,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                        d_end_offsets,
                                                                        begin_bit,
                                                                        end_bit,
-                                                                       _stream,
-                                                                       false));
+                                                                       _stream));
     }
 
 
@@ -95,8 +93,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                d_end_offsets,
                                                                begin_bit,
                                                                end_bit,
-                                                               _stream,
-                                                               false));
+                                                               _stream));
     }
 
 
@@ -121,8 +118,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                d_end_offsets,
                                                                begin_bit,
                                                                end_bit,
-                                                               _stream,
-                                                               false));
+                                                               _stream));
     }
 
 
@@ -146,8 +142,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                       d_end_offsets,
                                                                       begin_bit,
                                                                       end_bit,
-                                                                      _stream,
-                                                                      false));
+                                                                      _stream));
     }
 
 
@@ -169,8 +164,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                       d_end_offsets,
                                                                       begin_bit,
                                                                       end_bit,
-                                                                      _stream,
-                                                                      false));
+                                                                      _stream));
     }
 
 
@@ -195,8 +189,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                               d_end_offsets,
                                                               begin_bit,
                                                               end_bit,
-                                                              _stream,
-                                                              false));
+                                                              _stream));
     }
 
 
@@ -219,8 +212,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                               d_end_offsets,
                                                               begin_bit,
                                                               end_bit,
-                                                              _stream,
-                                                              false));
+                                                              _stream));
     }
 
 
@@ -253,8 +245,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                      d_end_offsets,
                                                      begin_bit,
                                                      end_bit,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
 
@@ -281,8 +272,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                      d_end_offsets,
                                                      begin_bit,
                                                      end_bit,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
 
@@ -313,8 +303,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                d_end_offsets,
                                                                begin_bit,
                                                                end_bit,
-                                                               _stream,
-                                                               false));
+                                                               _stream));
     }
 
 
@@ -341,8 +330,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                                d_end_offsets,
                                                                begin_bit,
                                                                end_bit,
-                                                               _stream,
-                                                               false));
+                                                               _stream));
     }
 
 
@@ -369,8 +357,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                     d_end_offsets,
                                                     begin_bit,
                                                     end_bit,
-                                                    _stream,
-                                                    false));
+                                                    _stream));
     }
 
 
@@ -395,8 +382,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                     d_end_offsets,
                                                     begin_bit,
                                                     end_bit,
-                                                    _stream,
-                                                    false));
+                                                    _stream));
     }
 
 
@@ -423,8 +409,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                               d_end_offsets,
                                                               begin_bit,
                                                               end_bit,
-                                                              _stream,
-                                                              false));
+                                                              _stream));
     }
 
 
@@ -449,8 +434,7 @@ class DeviceSegmentedRadixSort : public CubWrapper<DeviceSegmentedRadixSort>
                                                               d_end_offsets,
                                                               begin_bit,
                                                               end_bit,
-                                                              _stream,
-                                                              false));
+                                                              _stream));
     }
 };
 }  // namespace muda

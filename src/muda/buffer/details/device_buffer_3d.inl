@@ -25,7 +25,7 @@ DeviceBuffer3D<T>::DeviceBuffer3D(const DeviceBuffer3D<T>& other)
 {
     BufferLaunch()
         .resize(*this, other.extent())  //
-        .copy(view(), other.view())    //
+        .copy(view(), other.view())     //
         .wait();
 }
 
@@ -103,14 +103,16 @@ DeviceBuffer3D<T>& DeviceBuffer3D<T>::operator=(CBuffer3DView<T> other)
 }
 
 template <typename T>
-void DeviceBuffer3D<T>::copy_to(std::vector<T>& host) const
+template <typename Alloc>
+void DeviceBuffer3D<T>::copy_to(std::vector<T, Alloc>& host) const
 {
     host.resize(total_size());
     view().copy_to(host.data());
 }
 
 template <typename T>
-void DeviceBuffer3D<T>::copy_from(const std::vector<T>& host)
+template <typename Alloc>
+void DeviceBuffer3D<T>::copy_from(const std::vector<T, Alloc>& host)
 {
     MUDA_ASSERT(host.size() == total_size(),
                 "Need eqaul total size, host_size=%d, total_size=%d",

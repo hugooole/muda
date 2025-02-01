@@ -35,8 +35,7 @@ class DeviceSpmv : public CubWrapper<DeviceSpmv>
                                                      num_rows,
                                                      num_cols,
                                                      num_nonzeros,
-                                                     _stream,
-                                                     false));
+                                                     _stream));
     }
 
     // Origin:
@@ -63,8 +62,7 @@ class DeviceSpmv : public CubWrapper<DeviceSpmv>
                                                                        num_rows,
                                                                        num_cols,
                                                                        num_nonzeros,
-                                                                       _stream,
-                                                                       false));
+                                                                       _stream));
     }
 };
 }  // namespace muda

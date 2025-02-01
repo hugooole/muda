@@ -33,8 +33,10 @@ class DeviceBuffer2D
     DeviceBuffer2D(CBuffer2DView<T> other);
     DeviceBuffer2D& operator=(CBuffer2DView<T> other);
 
-    void copy_to(std::vector<T>& host) const;
-    void copy_from(const std::vector<T>& host);
+    template <typename Alloc>
+    void copy_to(std::vector<T, Alloc>& host) const;
+    template <typename Alloc>
+    void copy_from(const std::vector<T, Alloc>& host);
 
     void resize(Extent2D new_extent);
     void resize(Extent2D new_extent, const T& value);
