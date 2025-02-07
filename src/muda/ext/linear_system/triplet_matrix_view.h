@@ -119,7 +119,7 @@ class TripletMatrixViewT : public ViewBase<IsConst>
     }
 
     template <bool OtherIsConst>
-    MUDA_GENERIC TripletMatrixViewT(const TripletMatrixViewT<OtherIsConst, Ty, N>& other) MUDA_NOEXCEPT
+    MUDA_GENERIC TripletMatrixViewT(const TripletMatrixViewT<OtherIsConst, Ty, M, N>& other) MUDA_NOEXCEPT
         MUDA_REQUIRES(IsConst)
         : m_total_rows(other.m_total_rows)
         , m_total_cols(other.m_total_cols)
