@@ -21,10 +21,10 @@ class SpatialPartitionCell
     struct
     {
         // most use unsigned int to avoid comparison problem
-        U32 pass : 3;
-        U32 home : 3;
-        U32 overlap : 8;
-    } ctlbit;  // controll bit
+        U32 pass;     // : 3;
+        U32 home;     // : 3;
+        U32 overlap;  // : 8;
+    } ctlbit;         // controll bit
 
     U32 cid;  // cell id
     U32 oid;
@@ -196,7 +196,7 @@ namespace details
         DeviceVar<int>    uniqueKeyCount;
         int               validCellCount;
         int               sum;
-        size_t            pairListOffset = 0;
+        size_t            pairListOffset;
 
         DeviceBuffer<int> objCountInCell;
         DeviceBuffer<int> objCountInCellPrefixSum;
@@ -204,12 +204,15 @@ namespace details
         DeviceBuffer<int> collisionPairCount;
         DeviceBuffer<int> collisionPairPrefixSum;
 
-        int  level       = 0;
-        bool empty_level = false;
+        int  level;
+        bool empty_level;
 
         //using Hash = Hash;
         SparseSpatialHashImpl(muda::Stream& stream = muda::Stream::Default())
-            : m_stream(stream)
+            : m_stream{stream}
+            , pairListOffset{0}
+            , level{0}
+            , empty_level{false}
         {
         }
 

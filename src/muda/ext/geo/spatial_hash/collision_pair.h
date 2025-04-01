@@ -10,7 +10,7 @@ class CollisionPair
     Eigen::Vector2i id;
 
   public:
-    Eigen::Vector2i IDs() const { return id; }
+    MUDA_GENERIC Eigen::Vector2i IDs() const { return id; }
 
     MUDA_GENERIC CollisionPair(int i, int j)
     {
