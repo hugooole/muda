@@ -3,6 +3,7 @@
 #include <muda/ext/geo/spatial_hash/morton_hash.h>
 #include <muda/launch/launch.h>
 #include <muda/launch/parallel_for.h>
+#include <muda/buffer/device_var.h>
 #include <muda/buffer/device_buffer.h>
 #include <muda/ext/geo/spatial_hash/bounding_volume.h>
 #include <muda/ext/geo/spatial_hash/collision_pair.h>
