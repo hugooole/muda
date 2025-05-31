@@ -168,14 +168,19 @@ Contributions are welcome. We are looking for or are working on:
 - [Libuipc](https://github.com/spiriMirror/libuipc) using **muda** for GPU IPC simulation.
   
   ```
-  @misc{huang2024advancinggpuipcstiff,
-      title={Advancing GPU IPC for stiff affine-deformable simulation}, 
-      author={Kemeng Huang and Xinyu Lu and Huancheng Lin and Taku Komura and Minchen Li},
-      year={2024},
-      eprint={2411.06224},
-      archivePrefix={arXiv},
-      primaryClass={cs.GR},
-      url={https://arxiv.org/abs/2411.06224}, 
+  @article{10.1145/3735126,
+  author = {Huang, Kemeng and Lu, Xinyu and Lin, Huancheng and Komura, Taku and Li, Minchen},
+  title = {StiffGIPC: Advancing GPU IPC for Stiff Affine-Deformable Simulation},
+  year = {2025},
+  publisher = {Association for Computing Machinery},
+  volume = {44},
+  number = {3},
+  issn = {0730-0301},
+  doi = {10.1145/3735126},
+  journal = {ACM Trans. Graph.},
+  month = may,
+  articleno = {31},
+  numpages = {20}
   }
   ```
   ![libuipc](./docs/img/libuipc.png)
