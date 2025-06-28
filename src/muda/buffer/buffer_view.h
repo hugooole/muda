@@ -41,8 +41,8 @@ class BufferViewT : public ViewBase<IsConst>
 
   protected:
     auto_const_t<T>* m_data   = nullptr;
-    size_t           m_offset = ~0;
-    size_t           m_size   = ~0;
+    size_t           m_offset = 0;
+    size_t           m_size   = 0;
 
   public:
     MUDA_GENERIC BufferViewT() MUDA_NOEXCEPT = default;
