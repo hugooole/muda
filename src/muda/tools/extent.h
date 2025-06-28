@@ -11,7 +11,7 @@ class Extent2D
     size_t m_extent[2];
 
   public:
-    MUDA_GENERIC Extent2D() MUDA_NOEXCEPT : m_extent{~0ull, ~0ull} {}
+    MUDA_GENERIC Extent2D() MUDA_NOEXCEPT : m_extent{0, 0} {}
 
     MUDA_GENERIC Extent2D(size_t height, size_t width) MUDA_NOEXCEPT
         : m_extent{height, width}
@@ -41,7 +41,7 @@ class Extent3D
     size_t m_extent[3];
 
   public:
-    MUDA_GENERIC Extent3D() MUDA_NOEXCEPT : m_extent{~0ull, ~0ull, ~0ull} {}
+    MUDA_GENERIC Extent3D() MUDA_NOEXCEPT : m_extent{0, 0, 0} {}
     MUDA_GENERIC Extent3D(size_t depth, size_t height, size_t width) MUDA_NOEXCEPT
         : m_extent{depth, height, width}
     {
@@ -73,7 +73,7 @@ class Offset2D
     size_t m_offset[2];
 
   public:
-    MUDA_GENERIC Offset2D() MUDA_NOEXCEPT : m_offset{~0ull, ~0ull} {}
+    MUDA_GENERIC Offset2D() MUDA_NOEXCEPT : m_offset{0, 0} {}
 
     static MUDA_GENERIC Offset2D Zero() MUDA_NOEXCEPT { return Offset2D{0, 0}; }
 
@@ -104,7 +104,7 @@ class Offset3D
     size_t m_offset[3];
 
   public:
-    MUDA_GENERIC Offset3D() MUDA_NOEXCEPT : m_offset{~0ull, ~0ull, ~0ull} {}
+    MUDA_GENERIC Offset3D() MUDA_NOEXCEPT : m_offset{0, 0, 0} {}
 
     static MUDA_GENERIC Offset3D Zero() MUDA_NOEXCEPT
     {
