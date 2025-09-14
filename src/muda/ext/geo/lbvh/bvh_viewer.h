@@ -36,7 +36,7 @@ namespace details
 
         // Compute upper bound for the length of the range
 
-        const int delta_min = thrust::min(L_delta, R_delta);
+        const int delta_min = std::min(L_delta, R_delta);
         int       l_max     = 2;
         int       delta     = -1;
         int       i_tmp     = idx + d * l_max;

@@ -16,7 +16,7 @@ class DeviceSpmv : public CubWrapper<DeviceSpmv>
 
   public:
     using Base::Base;
-
+#if CUDA_VERSION < 13000
     template <typename ValueT>
     DeviceSpmv& CsrMV(const ValueT* d_values,
                       const int*    d_row_offsets,
@@ -66,6 +66,9 @@ class DeviceSpmv : public CubWrapper<DeviceSpmv>
                                                                        num_nonzeros,
                                                                        _stream));
     }
+  #else
+  // TODO: CsrMV
+  #endif
 };
 }  // namespace muda
 
