@@ -1,8 +1,10 @@
 #pragma once
 #include <muda/cub/device/cub_wrapper.h>
 #include "details/cub_wrapper_macro_def.inl"
+#if CUDA_VERSION < 13000
 #ifndef __INTELLISENSE__
 #include <cub/device/device_spmv.cuh>
+#endif
 #endif
 
 namespace muda

@@ -6,7 +6,11 @@
 #include <muda/ext/eigen.h>
 #include <thrust/system/cuda/execution_policy.h>
 #include <thrust/system/cuda/detail/par.h>
+#if CUDA_VERSION < 13000
 #include <thrust/async/for_each.h>
+#else
+#include <thrust/for_each.h>
+#endif
 #include <thrust/unique.h>
 
 #include "../example/example_common.h"
