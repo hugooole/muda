@@ -14,10 +14,6 @@ function muda_app_base(kind)
     add_includedirs("external/", {public = false})
     add_headerfiles("src/muda/**.h","src/muda/**.inl")
     
-    if has_config("github_actions") then
-        add_cugencodes("sm_89")
-    else
-        add_cugencodes("native")
-    end
+    add_cugencodes("native")
     add_links("cublas","cusparse")
 end

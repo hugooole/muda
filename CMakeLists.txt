@@ -22,7 +22,7 @@ endif()
 
 # to remove warning
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-  set(CMAKE_CUDA_ARCHITECTURES 75)
+  set(CMAKE_CUDA_ARCHITECTURES native)
 endif()
 
 project(muda LANGUAGES CXX CUDA)
