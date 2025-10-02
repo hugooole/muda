@@ -47,11 +47,12 @@ file(GLOB_RECURSE MUDA_HEADER_FILES "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_S
 target_sources(muda PUBLIC ${MUDA_HEADER_FILES})
 target_compile_features(muda INTERFACE cxx_std_17)
 target_link_libraries(muda INTERFACE CUDA::cudart)
+if(CUDAToolkit_VERSION_MAJOR GREATER_EQUAL 13)
+    target_include_directories(cuda INTERFACE ${CUDAToolkit_INCLUDE_DIRS}/cccl)
+endif()
 target_include_directories(muda INTERFACE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
 target_include_directories(muda INTERFACE "${PROJECT_SOURCE_DIR}/src/")
 source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "Header Files" FILES ${MUDA_HEADER_FILES})
-
-
 
 if(MUDA_FORCE_CHECK)
   target_compile_definitions(muda INTERFACE "-DMUDA_CHECK_ON=1")
