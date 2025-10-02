@@ -31,6 +31,8 @@ find_package(CUDAToolkit REQUIRED)
 
 enable_language(CUDA)
 
+include(GNUInstallDirs)
+
 # muda
 add_library(muda INTERFACE)
 target_compile_options(muda INTERFACE
@@ -44,14 +46,17 @@ target_compile_options(muda INTERFACE
 )
 file(GLOB_RECURSE MUDA_HEADER_FILES "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_SOURCE_DIR}/src/*.inl" "${PROJECT_SOURCE_DIR}/src/*.cuh")
 
-target_sources(muda PUBLIC ${MUDA_HEADER_FILES})
+# target_sources(muda PUBLIC ${MUDA_HEADER_FILES})
 target_compile_features(muda INTERFACE cxx_std_17)
 target_link_libraries(muda INTERFACE CUDA::cudart)
 if(CUDAToolkit_VERSION_MAJOR GREATER_EQUAL 13)
     target_include_directories(cuda INTERFACE ${CUDAToolkit_INCLUDE_DIRS}/cccl)
 endif()
 target_include_directories(muda INTERFACE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
-target_include_directories(muda INTERFACE "${PROJECT_SOURCE_DIR}/src/")
+target_include_directories(muda INTERFACE 
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "Header Files" FILES ${MUDA_HEADER_FILES})
 
 if(MUDA_FORCE_CHECK)
@@ -84,3 +89,16 @@ endif()
 if(MUDA_BUILD_TEST)
   add_subdirectory("test")
 endif()
+
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/src/muda" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(TARGETS muda EXPORT mudaTargets)
+install(EXPORT mudaTargets
+    FILE mudaTargets.cmake
+    NAMESPACE muda::
+    DESTINATION share/muda
+)
+
+install(FILES
+    "${PROJECT_SOURCE_DIR}/cmake/mudaConfig.cmake"
+    DESTINATION share/muda
+)
