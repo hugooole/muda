@@ -63,7 +63,7 @@ void thrust_test()
 #if CUDA_VERSION < 13000
                                      ptr_n.first.get()
 #else
-                        ptr_n.first
+                                     ptr_n.first
 #endif
                                          ,
                                      N)
