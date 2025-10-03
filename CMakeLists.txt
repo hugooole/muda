@@ -55,7 +55,7 @@ target_compile_options(muda INTERFACE
 if(WIN32)
     # 4819: character cannot be represented in the current code page (936)
     # 4068: unrecognized #pragma unroll
-    set(DISABLED_WARNINGS "/wd4819 /wd4068")
+    set(DISABLED_WARNINGS "/wd4819 /wd4068 /wd4996")
     target_compile_options(muda INTERFACE 
         $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler ${DISABLED_WARNINGS}>
     )
