@@ -202,7 +202,7 @@ void SparseSpatialHashImpl<Hash>::fill_hash_cells()
 
                    // turn off othese non-overlap neighbor cells if we do have.
                    for(; idx < 8; ++idx)
-                       cellArrayValue(objectId, idx) = Cell(-1, -1);
+                       cellArrayValue(objectId, idx) = Cell(~0, ~0);
 
                    // fill the key for later sorting
                    for(int i = 0; i < 8; ++i)
@@ -215,7 +215,7 @@ void SparseSpatialHashImpl<Hash>::fill_hash_cells()
              cellArrayKey   = cellArrayKey.viewer()] __device__() mutable
             {
                 cellArrayKey(cellArrayKey.total_size() - 1)     = -1;
-                cellArrayValue(cellArrayValue.total_size() - 1) = Cell(-1, -1);
+                cellArrayValue(cellArrayValue.total_size() - 1) = Cell(~0, ~0);
             });
 }
 
@@ -419,7 +419,7 @@ void SparseSpatialHashImpl<Hash>::balanced_setup_collision_pairs(
                     cellToCollisionPairUpperBound.view(0, validCellCount).viewer()] __device__(int cell) mutable
                {
                    int size = objCountInCell(cell);
-                   cellToCollisionPairUpperBound(cell) = size * (size - 1) / 2 + 1; // +1 for sentinel
+                   cellToCollisionPairUpperBound(cell) = size * (size - 1) / 2 + 1;  // +1 for sentinel
                });
 
     // e.g.
@@ -433,7 +433,7 @@ void SparseSpatialHashImpl<Hash>::balanced_setup_collision_pairs(
     // count = 14
     int collisionPairCountUpperBound = 0;
     BufferLaunch(m_stream).copy<int>(&collisionPairCountUpperBound,
-                                cellToCollisionPairUpperBoundPrefixSum.view(validCellCount));
+                                     cellToCollisionPairUpperBoundPrefixSum.view(validCellCount));
 
     // e.g.
     //                                              0  1  2  3  4  5  6  7  8  9 10 11 12 13
@@ -521,7 +521,7 @@ void SparseSpatialHashImpl<Hash>::balanced_setup_collision_pairs(
 
                 collisionPairBuffer(cpI) = CollisionPair::invalid();
 
-                if(cellLocalIndex == 0) // ignore the first sentinel
+                if(cellLocalIndex == 0)  // ignore the first sentinel
                     return;
 
                 cellLocalIndex -= 1;

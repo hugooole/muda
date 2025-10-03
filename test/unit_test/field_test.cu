@@ -78,7 +78,6 @@ void field_test2(FieldEntryLayout layout)
 {
     Field field;
     auto& particle = field["particle"];
-    float dt       = 0.01f;
 
     // build the field
     auto builder = particle.AoSoA();

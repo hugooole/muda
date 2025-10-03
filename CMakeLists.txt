@@ -45,13 +45,19 @@ target_compile_options(muda INTERFACE
     $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
     $<$<COMPILE_LANGUAGE:CUDA>:-rdc=true>
     $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe --display_error_number>
-    $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 20012>
 )
 
+# remove meaningless warnings
+set(DIAG_SUPPRESSIONS "20012,20011,20014")
+target_compile_options(muda INTERFACE
+    $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress ${DIAG_SUPPRESSIONS}>
+)
 if(WIN32)
-    target_compile_definitions(muda INTERFACE 
-        $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 4819>
-        $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 4068>
+    # 4819: character cannot be represented in the current code page (936)
+    # 4068: unrecognized #pragma unroll
+    set(DISABLED_WARNINGS "/wd4819 /wd4068")
+    target_compile_options(muda INTERFACE 
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler ${DISABLED_WARNINGS}>
     )
 endif()
 

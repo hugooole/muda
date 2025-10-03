@@ -204,8 +204,8 @@ namespace details
                         ij_pairs = ij_pairs.viewer().name("ij_pairs")] __device__(int i) mutable
                        {
                            auto hash      = ij_hash(i);
-                           auto row_index = int{hash >> 32};
-                           auto col_index = int{hash & 0xFFFFFFFF};
+                           auto row_index = static_cast<int>(hash >> 32);
+                           auto col_index = static_cast<int>(hash & 0xFFFFFFFF);
                            ij_pairs(i).x  = row_index;
                            ij_pairs(i).y  = col_index;
                        });
@@ -256,8 +256,8 @@ namespace details
                             "col_indices")] __device__(int i) mutable
                        {
                            auto hash      = ij_hash(i);
-                           auto row_index = int{hash >> 32};
-                           auto col_index = int{hash & 0xFFFFFFFF};
+                           auto row_index = static_cast<int>(hash >> 32);
+                           auto col_index = static_cast<int>(hash & 0xFFFFFFFF);
                            row_indices(i) = row_index;
                            col_indices(i) = col_index;
                        });
