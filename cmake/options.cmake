@@ -1,3 +1,4 @@
+option(MUDA_PACKAGE "build muda as a package" OFF)
 option(MUDA_FORCE_CHECK "turn on muda runtime check for all mode (Debug/RelWithDebInfo/Release)" OFF)
 option(MUDA_WITH_CHECK "turn on muda runtime check when mode != Release" ON)
 option(MUDA_WITH_COMPUTE_GRAPH "turn on muda compute graph" OFF)

@@ -3,9 +3,10 @@ cmake_minimum_required(VERSION 3.20)
 
 # include options and install dirs
 include(cmake/options.cmake)
-include(GNUInstallDirs)
 
 project(muda LANGUAGES CXX CUDA)
+# must include after project()
+include(GNUInstallDirs)
 
 # to remove warning
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
@@ -34,6 +35,7 @@ target_include_directories(muda INTERFACE
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
+
 # link libraries
 target_link_libraries(muda INTERFACE CUDA::cudart)
 
@@ -42,9 +44,17 @@ target_compile_options(muda INTERFACE
     $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
     $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
     $<$<COMPILE_LANGUAGE:CUDA>:-rdc=true>
-    # disable warning
-    $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe --display_error_number --diag-suppress 20012>
+    $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe --display_error_number>
+    $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 20012>
 )
+
+if(WIN32)
+    target_compile_definitions(muda INTERFACE 
+        $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 4819>
+        $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress 4068>
+    )
+endif()
+
 if(MUDA_FORCE_CHECK)
     target_compile_definitions(muda INTERFACE "-DMUDA_CHECK_ON=1")
 else()
@@ -69,9 +79,8 @@ else()
     target_compile_definitions(muda INTERFACE "-DMUDA_NVTX3_ON=0")
 endif()
 
-# source files
+# header files
 file(GLOB_RECURSE MUDA_HEADER_FILES "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_SOURCE_DIR}/src/*.inl" "${PROJECT_SOURCE_DIR}/src/*.cuh")
-source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "Header Files" FILES ${MUDA_HEADER_FILES})
 
 # installation
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/src/muda" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
@@ -85,6 +94,9 @@ install(FILES
     "${PROJECT_SOURCE_DIR}/cmake/muda-config.cmake"
     DESTINATION share/muda
 )
+
+source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "Header Files" FILES ${MUDA_HEADER_FILES})
+
 
 # ----------------------------------------------------------------------------
 # example and test
