@@ -50,14 +50,14 @@ target_compile_options(muda INTERFACE
 # remove meaningless warnings
 set(DIAG_SUPPRESSIONS "20012,20011,20014")
 target_compile_options(muda INTERFACE
-    $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress ${DIAG_SUPPRESSIONS}>
+    $<$<COMPILE_LANGUAGE:CUDA>:-diag-suppress=${DIAG_SUPPRESSIONS}>
 )
 if(WIN32)
     # 4819: character cannot be represented in the current code page (936)
     # 4068: unrecognized #pragma unroll
     set(DISABLED_WARNINGS "/wd4819 /wd4068 /wd4996")
     target_compile_options(muda INTERFACE 
-        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler ${DISABLED_WARNINGS}>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=${DISABLED_WARNINGS}>
     )
 endif()
 
