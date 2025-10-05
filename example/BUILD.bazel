@@ -37,7 +37,7 @@ cuda_library(
         "--expt-relaxed-constexpr",
         "--extended-lambda",
     ],
-    includes = ["//external", "."],
+    includes = ["../external", "."],
     deps = [
         "//:muda",
         "@eigen//:eigen",
