@@ -1,6 +1,7 @@
 #include <muda/muda.h>
 #include <muda/buffer.h>
-#include <example_common.h>
+#include "example_common.h"
+#include "test.h"
 using namespace muda;
 void hello_muda()
 {
@@ -18,11 +19,4 @@ void quick_overview()
                [] __device__(int i)
                { print("hello muda for %d/4 rounds\n", i + 1); })
         .wait();
-}
-
-int main()
-{
-    hello_muda();
-    quick_overview();
-    return 0;
 }

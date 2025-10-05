@@ -1,0 +1,28 @@
+load("@rules_cuda//cuda:defs.bzl", "cuda_library")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cuda_library(
+    name = "hello_muda",
+    srcs = ["test.cu"],
+    hdrs = ["test.h", "example_common.h"],
+    copts = [
+        "--expt-relaxed-constexpr",
+        "--extended-lambda",
+    ],
+    deps = [
+        "//:muda",
+    ]
+)
+
+cc_binary(
+    name = "hello_muda_bin",
+    srcs = ["main.cpp"],
+    copts = [
+        "-std=c++17",
+    ],
+    deps = [
+        ":hello_muda",
+    ],
+)
