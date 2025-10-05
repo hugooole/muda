@@ -30,9 +30,9 @@ cc_binary(
 cuda_library(
     name = "example",
     srcs = glob([
-        "example/**/*.cu",
+        "**/*.cu",
     ]),
-    hdrs = ["example_common.h"]
+    hdrs = ["example_common.h"],
     copts = [
         "--expt-relaxed-constexpr",
         "--extended-lambda",
