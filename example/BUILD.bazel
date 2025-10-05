@@ -39,7 +39,7 @@ cuda_library(
     ],
     includes = ["//external"],
     deps = [
-        ":muda",
+        "//:muda",
     ],
     visibility = ["//visibility:public"],
 )
