@@ -10,3 +10,10 @@ vsxmake2022
 
 # CMake Cache
 CMakeBuild/
+
+# Bazel build
+bazel-*
+MODULE.bazel.lock
+
+# JetBrains IDEs
+.idea/  
