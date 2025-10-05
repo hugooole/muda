@@ -18,7 +18,7 @@ cuda_library(
 
 cc_binary(
     name = "hello_muda_bin",
-    srcs = ["main.cpp"],
+    srcs = ["test_main.cpp"],
     copts = [
         "-std=c++17",
     ],
