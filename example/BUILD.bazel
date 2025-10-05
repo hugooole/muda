@@ -16,16 +16,12 @@ cc_library(
     ],
 )
 
-cuda_library(
+cc_test(
     name = "example",
     srcs = glob([
         "**/*.cu",
     ]),
     hdrs = ["example_common.h"],
-    copts = [
-        "--expt-relaxed-constexpr",
-        "--extended-lambda",
-    ],
     includes = ["../external", "."],
     deps = [
         "//:muda",
@@ -33,5 +29,4 @@ cuda_library(
         ":catch-main",
         "//external/catch2:catch2",
     ],
-    visibility = ["//visibility:public"],
 )
