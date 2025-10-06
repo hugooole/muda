@@ -44,7 +44,7 @@ cuda_library(
 
 cc_test(
     name = "test_main",
-    srcs = ["test_main.cpp"],
+    srcs = ["bazel_examples/test_main.cpp"],
     deps = [
         ":catch-main",
         "//external/catch2:catch2",
