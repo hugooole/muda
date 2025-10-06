@@ -1,9 +1,10 @@
+#include "hello_muda/vector_add.h"
 #include <catch2/catch.hpp>
 #include <muda/muda.h>
+#include <muda/container.h>
 #include <numeric>
 #include <algorithm>
 #include <example_common.h>
-#include "hello_muda/vector_add.h"
 
 using namespace muda;
 
