@@ -26,9 +26,6 @@ add_library(muda INTERFACE)
 target_compile_features(muda INTERFACE cxx_std_17)
 
 # include directories
-if(CUDAToolkit_VERSION_MAJOR GREATER_EQUAL 13)
-    target_include_directories(muda INTERFACE ${CUDAToolkit_INCLUDE_DIRS}/cccl)
-endif()
 target_include_directories(muda INTERFACE 
     ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
