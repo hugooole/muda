@@ -21,25 +21,3 @@ cuda_library(
     includes = ["src"],
     visibility = ["//visibility:public"],
 )
-
-# cuda_binary(
-#     name = "examples",
-#     srcs = glob([
-#         "example/**/*.cu",
-#         "example/**/*.cpp",
-#     ]),
-#     hdrs = [
-#         "example/example_common.h",
-#     ],
-#     copts = [
-#         # "--expt-relaxed-constexpr",
-#         # "--extended-lambda",
-#         "-std=c++17",
-#     ],
-#     includes = ["example"],
-#     deps = [
-#         ":muda",
-#         "//external/catch2",
-#         "@eigen",
-#     ],
-# )
