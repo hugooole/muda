@@ -1,4 +1,4 @@
-load("@rules_cuda//cuda:defs.bzl", "cuda_library")
+load("@rules_cuda//cuda:defs.bzl", "cuda_library", "cuda_binary", "cuda_test")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
 package(default_visibility = ["//visibility:public"])
@@ -31,18 +31,20 @@ cuda_library(
     name = "examples",
     hdrs = glob([
         "bazel_examples/**/*.h",
-    ]),
+        "src/**/*.h",
+        "src/**/*.hpp",
+        "src/**/*.inl",
+        "src/**/*.cuh",
+    ], allow_empty = True),
     srcs = glob([
         "bazel_examples/**/*.cu",
     ]),
-    deps = [
-        "//:muda",
-    ],
-    copts = ["--expt-relaxed-constexpr", "--extended-lambda"],
-    includes = ["bazel_examples"],
+    copts = ["--expt-relaxed-constexpr", "--extended-lambda", "-std=c++17"],
+    # archs = ["compute_89:compute_89,sm_89"],
+    includes = ["bazel_examples", "src"],
 )
 
-cc_test(
+cuda_test(
     name = "test_main",
     srcs = ["bazel_examples/test_main.cpp"],
     deps = [
@@ -50,5 +52,5 @@ cc_test(
         "//external/catch2:catch2",
         ":examples",
     ],
-    copts = ["-std=c++17"],
+    copts = ["-std=c++20"],
 )
