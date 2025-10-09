@@ -1,0 +1,24 @@
+load("@rules_cuda//cuda:defs.bzl", "cuda_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+cuda_binary(
+    name = "examples",
+    srcs = glob([
+        "**/*.cu",
+        "**/*.cpp",
+    ]),
+    hdrs = [
+        "example_common.h",
+    ],
+    copts = [
+        "-std=c++17",
+    ],
+    includes = ["."],
+    deps = [
+        "//:muda",
+        "//third_party/catch2",
+        "@eigen",
+    ],
+    rdc=True,
+)
