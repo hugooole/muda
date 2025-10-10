@@ -1,6 +1,37 @@
 load("@rules_cuda//cuda:defs.bzl", "cuda_library")
+load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 
 package(default_visibility = ["//visibility:public"])
+
+bool_flag(
+    name = "muda_check",
+    build_setting_default = False,
+)
+
+config_setting(
+    name = "muda_check_on",
+    flag_values = {":muda_check": "True"},
+)
+
+bool_flag(
+    name = "muda_compute_graph",
+    build_setting_default = False,
+)
+
+config_setting(
+    name = "muda_compute_graph_on",
+    flag_values = {":muda_compute_graph": "True"},
+)
+
+bool_flag(
+    name = "muda_nvtx3",
+    build_setting_default = False,
+)
+
+config_setting(
+    name = "muda_nvtx3_on",
+    flag_values = {":muda_nvtx3": "True"},
+)
 
 cuda_library(
     name = "muda",
@@ -16,7 +47,16 @@ cuda_library(
     copts = [
         "--expt-relaxed-constexpr",
         "--extended-lambda",
-    ],
+    ] + select({
+        ":muda_check_on": ["-DMUDA_CHECK_ON=1"],
+        "//conditions:default": ["-DMUDA_CHECK_ON=0"],
+    }) + select({
+        ":muda_compute_graph_on": ["-DMUDA_COMPUTE_GRAPH_ON=1"],
+        "//conditions:default": ["-DMUDA_COMPUTE_GRAPH_ON=0"],
+    }) + select({
+        ":muda_nvtx3_on": ["-DMUDA_NVTX3_ON=1"],
+        "//conditions:default": ["-DMUDA_NVTX3_ON=0"],
+    }),
     includes = ["src"],
     visibility = ["//visibility:public"],
 )
