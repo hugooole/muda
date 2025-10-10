@@ -1,7 +1,5 @@
 load("@rules_cuda//cuda:defs.bzl", "cuda_binary")
 
-package(default_visibility = ["//visibility:public"])
-
 cuda_binary(
     name = "examples",
     srcs = glob([
@@ -15,10 +13,11 @@ cuda_binary(
         "-std=c++17",
     ],
     includes = ["."],
+    rdc = True,
+    visibility = ["//:__pkg__"],
     deps = [
         "//:muda",
-        "//third_party/catch2",
+        "//third_party:catch2",
         "@eigen",
     ],
-    rdc=True,
 )

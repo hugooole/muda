@@ -5,6 +5,7 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "catch2",
     hdrs = glob([
-        "**/*.hpp",
+        "catch2/**/*.hpp",
     ]),
+    includes = ["."],
 )
