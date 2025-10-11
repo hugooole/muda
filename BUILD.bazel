@@ -1,5 +1,5 @@
-load("@rules_cuda//cuda:defs.bzl", "cuda_library")
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+load("@rules_cuda//cuda:defs.bzl", "cuda_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -47,15 +47,16 @@ cuda_library(
     copts = [
         "--expt-relaxed-constexpr",
         "--extended-lambda",
-    ] + select({
-        ":muda_check_on": ["-DMUDA_CHECK_ON=1"],
-        "//conditions:default": ["-DMUDA_CHECK_ON=0"],
+    ],
+    defines = select({
+        ":muda_check_on": ["MUDA_CHECK_ON"],
+        "//conditions:default": ["MUDA_CHECK_ON=0"],
     }) + select({
-        ":muda_compute_graph_on": ["-DMUDA_COMPUTE_GRAPH_ON=1"],
-        "//conditions:default": ["-DMUDA_COMPUTE_GRAPH_ON=0"],
+        ":muda_compute_graph_on": ["MUDA_COMPUTE_GRAPH_ON"],
+        "//conditions:default": [],
     }) + select({
-        ":muda_nvtx3_on": ["-DMUDA_NVTX3_ON=1"],
-        "//conditions:default": ["-DMUDA_NVTX3_ON=0"],
+        ":muda_nvtx3_on": ["MUDA_NVTX3_ON"],
+        "//conditions:default": [],
     }),
     includes = ["src"],
     visibility = ["//visibility:public"],

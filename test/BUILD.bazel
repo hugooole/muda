@@ -1,10 +1,5 @@
 load("@rules_cuda//cuda:defs.bzl", "cuda_binary")
 
-config_setting(
-    name = "windows",
-    values = {"cpu": "x64_windows"},
-)
-
 cuda_binary(
     name = "muda_unit_test",
     srcs = glob([
@@ -16,7 +11,7 @@ cuda_binary(
         "--extended-lambda",
         "-std=c++20",
     ] + select({
-        ":windows": ["/wd4819"],
+        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
         "//conditions:default": [],
     }),
     rdc = True,
@@ -45,7 +40,7 @@ cuda_binary(
         "--extended-lambda",
         "-std=c++20",
     ] + select({
-        ":windows": ["/wd4819"],
+        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
         "//conditions:default": [],
     }),
     rdc = True,
@@ -74,7 +69,7 @@ cuda_binary(
         "--extended-lambda",
         "-std=c++20",
     ] + select({
-        ":windows": ["/wd4819"],
+        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
         "//conditions:default": [],
     }),
     rdc = True,
