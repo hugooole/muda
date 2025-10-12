@@ -1,7 +1,14 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_cuda//cuda:defs.bzl", "cuda_library")
+load("@rules_license//license:rules.bzl", "license")
 
 package(default_visibility = ["//visibility:public"])
+
+license(
+    name = "apache_2_license",
+    license_text = ":LICENSE",
+    license_kinds = ["@rules_license//licenses/spdx:Apache-2.0"],
+)
 
 bool_flag(
     name = "muda_check",
@@ -60,4 +67,5 @@ cuda_library(
     }),
     includes = ["src"],
     visibility = ["//visibility:public"],
+    licenses = [":apache_2_license"],
 )
