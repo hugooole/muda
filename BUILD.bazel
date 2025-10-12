@@ -1,12 +1,17 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_cuda//cuda:defs.bzl", "cuda_library")
-load("@rules_license//license:rules.bzl", "license")
+load("@rules_license//rules:license.bzl", "license")
 
-package(default_visibility = ["//visibility:public"])
+package(
+    default_applicable_licenses = [":license"],
+    default_visibility = ["//visibility:public"],
+)
 
 license(
-    name = "apache_2_license",
-    license_text = ":LICENSE",
+    name = "license",
+    package_name = "muda",
+    package_url = "https://github.com/MuGdxy/muda",
+    license_text = "LICENSE",
     license_kinds = ["@rules_license//licenses/spdx:Apache-2.0"],
 )
 
@@ -66,6 +71,4 @@ cuda_library(
         "//conditions:default": [],
     }),
     includes = ["src"],
-    visibility = ["//visibility:public"],
-    licenses = [":apache_2_license"],
 )
