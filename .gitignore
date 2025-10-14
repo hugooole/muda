@@ -10,3 +10,17 @@ vsxmake2022
 
 # CMake Cache
 CMakeBuild/
+
+# Bazel build
+bazel-*
+MODULE.bazel.lock
+
+# JetBrains IDEs
+.idea/  
+
+.cache
+
+compile_commands.json
+
+# //external is reserved by Bazel and needed for hedron_compile_commands
+external/
