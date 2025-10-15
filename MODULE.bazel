@@ -2,7 +2,7 @@
 
 module(
     name = "muda",
-    version = "0.1.0",
+    version = "1.0.0-beta",
     compatibility_level = 1,
 )
 
