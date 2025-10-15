@@ -1,6 +1,6 @@
-load("@rules_cuda//cuda:defs.bzl", "cuda_binary")
+load("@rules_cuda//cuda:defs.bzl", "cuda_test")
 
-cuda_binary(
+cuda_test(
     name = "muda_unit_test",
     srcs = glob([
         "unit_test/**/*.cu",
@@ -22,7 +22,7 @@ cuda_binary(
     ],
 )
 
-cuda_binary(
+cuda_test(
     name = "muda_eigen_test",
     srcs = glob([
         "eigen_test/**/*.cu",
@@ -51,8 +51,8 @@ cuda_binary(
     ],
 )
 
-cuda_binary(
-    name = "muda_linear_sysytem_test",
+cuda_test(
+    name = "muda_linear_system_test",
     srcs = glob([
         "linear_system_test/**/*.cu",
         "linear_system_test/**/*.cpp",
@@ -77,8 +77,8 @@ cuda_binary(
         "//:muda",
         "//third_party:catch2",
         "@eigen",
-        "@local_cuda//:cublas",
-        "@local_cuda//:cusolver",
-        "@local_cuda//:cusparse",
+        "@cuda//:cublas",
+        "@cuda//:cusolver",
+        "@cuda//:cusparse",
     ],
 )
