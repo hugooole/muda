@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
-load("@rules_cuda//cuda:defs.bzl", "cuda_library")
+load("@rules_cc//cc:defs.bzl", "cc_library")
 load("@rules_license//rules:license.bzl", "license")
 
 package(
@@ -9,8 +9,8 @@ package(
 
 license(
     name = "license",
-    package_name = "muda",
-    package_url = "https://github.com/MuGdxy/muda",
+    package_name = "hugooole_muda",
+    package_url = "https://github.com/hugooole/muda",
     license_text = "LICENSE",
     license_kinds = ["@rules_license//licenses/spdx:Apache-2.0"],
 )
@@ -45,7 +45,7 @@ config_setting(
     flag_values = {":muda_nvtx3": "True"},
 )
 
-cuda_library(
+cc_library(
     name = "muda",
     hdrs = glob(
         [
