@@ -10,10 +10,7 @@ cuda_test(
         "--expt-relaxed-constexpr",
         "--extended-lambda",
         "-std=c++20",
-    ] + select({
-        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
-        "//conditions:default": [],
-    }),
+    ],
     rdc = True,
     deps = [
         "//:muda",
@@ -39,10 +36,7 @@ cuda_test(
         "--expt-relaxed-constexpr",
         "--extended-lambda",
         "-std=c++20",
-    ] + select({
-        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
-        "//conditions:default": [],
-    }),
+    ],
     rdc = True,
     deps = [
         "//:muda",
@@ -68,10 +62,7 @@ cuda_test(
         "--expt-relaxed-constexpr",
         "--extended-lambda",
         "-std=c++20",
-    ] + select({
-        "@rules_cc//cc/compiler:msvc-cl": ["/wd4819"],
-        "//conditions:default": [],
-    }),
+    ],
     rdc = True,
     deps = [
         "//:muda",

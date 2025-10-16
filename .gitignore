@@ -18,6 +18,8 @@ MODULE.bazel.lock
 # JetBrains IDEs
 .idea/  
 
+.vs/
+
 .cache
 
 compile_commands.json
