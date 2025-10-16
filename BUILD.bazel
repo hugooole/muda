@@ -17,7 +17,7 @@ license(
 
 bool_flag(
     name = "muda_check",
-    build_setting_default = False,
+    build_setting_default = True,
 )
 
 config_setting(
