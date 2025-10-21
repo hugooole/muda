@@ -32,3 +32,4 @@ build --cxxopt="-fdiagnostics-color=always"
 build --cuda_archs=compute_89:compute_89,sm_89
 
 test --test_output=all
+test --copt=-Xcudafe --copt=--diag_suppress=20014

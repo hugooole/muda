@@ -229,7 +229,10 @@ MUDA_INLINE MUDA_GENERIC int ParallelFor::calculate_grid_dim(int count, int bloc
 MUDA_INLINE MUDA_GENERIC void ParallelFor::check_input(int count) const MUDA_NOEXCEPT
 {
     MUDA_KERNEL_ASSERT(count >= 0, "count must be >= 0");
-    MUDA_KERNEL_ASSERT(m_block_dim > 0, "blockDim must be > 0");
+    if (m_grid_dim > 0)
+    {
+        MUDA_KERNEL_ASSERT(m_block_dim > 0, "blockDim must be > 0");
+    }
 }
 
 MUDA_INLINE MUDA_DEVICE int ParallelForDetails::active_num_in_block() const MUDA_NOEXCEPT
