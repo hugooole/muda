@@ -12,6 +12,11 @@ bazel_dep(name = "rules_license", version = "1.0.0")
 
 # rules_cuda is required for CUDA toolchain support
 bazel_dep(name = "rules_cuda", version = "0.2.4")
+git_override(
+    module_name = "rules_cuda",
+    commit = "1bf21ef1eee98042c0b2c5f39365ac39a4217c53",
+    remote = "https://github.com/bazel-contrib/rules_cuda.git",
+)
 
 bazel_dep(name = "eigen", version = "3.4.1")
 
@@ -29,8 +34,8 @@ git_override(
 )
 
 cuda = use_extension("@rules_cuda//cuda:extensions.bzl", "toolchain")
-cuda.local_toolchain(
-    name = "local_cuda",
+cuda.toolkit(
+    name = "cuda",
     toolkit_path = "/usr/local/cuda",
 )
-use_repo(cuda, "local_cuda")
+use_repo(cuda, "cuda")

@@ -28,3 +28,7 @@ build --cxxopt="-std=c++17"
 build --host_cxxopt="-std=c++17"
 # Enable colorful output of GCC
 build --cxxopt="-fdiagnostics-color=always"
+
+build --cuda_archs=compute_89:compute_89,sm_89
+
+test --test_output=all
