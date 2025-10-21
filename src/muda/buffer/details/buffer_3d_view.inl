@@ -111,10 +111,11 @@ template <bool IsConst, typename T>
 MUDA_GENERIC auto Buffer3DViewT<IsConst, T>::cuda_pitched_ptr() const
     MUDA_NOEXCEPT->cudaPitchedPtr
 {
-    return make_cudaPitchedPtr(remove_const(m_data),
-                               remove_const(m_pitch_bytes),
-                               m_origin_width * sizeof(T),
-                               m_origin_height);
+    // don't use make_cudaPitchedPtr (__host__ only function)
+    return cudaPitchedPtr{.ptr   = remove_const(m_data),
+                          .pitch = remove_const(m_pitch_bytes),
+                          .xsize = m_origin_width * sizeof(T),
+                          .ysize = m_origin_height};
 }
 
 template <bool IsConst, typename T>

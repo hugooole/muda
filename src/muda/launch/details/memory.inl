@@ -192,7 +192,7 @@ MUDA_INLINE MUDA_HOST Memory& Memory::set(
             [&]
             {
                 checkCudaErrors(cudaMemset2DAsync(
-                    data, (int)value, width_bytes, height, pitch, stream()));
+                    data, pitch, (int)value, width_bytes, height, stream()));
             },
             [&]
             {
@@ -210,7 +210,7 @@ MUDA_INLINE MUDA_HOST Memory& Memory::set(
     else
     {
         checkCudaErrors(
-            cudaMemset2DAsync(data, (int)value, width_bytes, height, pitch, stream()));
+            cudaMemset2DAsync(data, pitch, (int)value, width_bytes, height, stream()));
     }
     return *this;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <muda/ext/geo/spatial_hash/sparse_spatial_hash_impl.h>
+#include <muda/ext/spatial_hash/sparse_spatial_hash_impl.h>
 
 namespace muda::spatial_hash
 {

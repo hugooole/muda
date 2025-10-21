@@ -65,19 +65,19 @@ MUDA_INLINE void SubFieldImpl<FieldEntryLayout::SoA>::build_impl()
 
 MUDA_INLINE size_t SubFieldImpl<FieldEntryLayout::SoA>::require_total_buffer_byte_size(size_t num_elements)
 {
-    auto base              = m_build_options.max_alignment;
-    auto old_count_of_base = (m_num_elements + base - 1) / base;
+    auto base = m_build_options.max_alignment;
+    // auto old_count_of_base = (m_num_elements + base - 1) / base;
     auto new_count_of_base = (num_elements + base - 1) / base;
-    auto rounded_new_count = base * new_count_of_base;
-    auto total_bytes       = m_base_struct_stride * new_count_of_base;
+    // auto rounded_new_count = base * new_count_of_base;
+    auto total_bytes = m_base_struct_stride * new_count_of_base;
     return total_bytes;
 }
 
 MUDA_INLINE void SubFieldImpl<FieldEntryLayout::SoA>::calculate_new_cores(
     std::byte* byte_buffer, size_t total_bytes, size_t element_count, span<FieldEntryCore> new_cores)
 {
-    auto base              = m_build_options.max_alignment;
-    auto old_count_of_base = (m_num_elements + base - 1) / base;
+    auto base = m_build_options.max_alignment;
+    // auto old_count_of_base = (m_num_elements + base - 1) / base;
     auto new_count_of_base = (element_count + base - 1) / base;
     auto rounded_new_count = base * new_count_of_base;
 
