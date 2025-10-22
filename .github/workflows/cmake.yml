@@ -42,7 +42,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.20
         id: cuda-toolkit
         with:
-          cuda: "12.6.3"
+          cuda: "12.8.61"
 
       - name: Setup ninja and Eigen3 on Ubuntu
         if: matrix.os == 'ubuntu-22.04'
