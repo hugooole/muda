@@ -25,48 +25,41 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    container:
-      image: nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
-      options: --gpus all
-
     concurrency:
       group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-cmake-${{ matrix.os }}
       cancel-in-progress: true
 
     steps:
-      - name: TEST NVIDIA_SMI
-        run: nvidia-smi
+      - name: Maximize build space
+        if: matrix.os == 'ubuntu-22.04'
+        uses: AdityaGarg8/remove-unwanted-software@v4.1
+        with:
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
 
-      # - name: Maximize build space
-      #   if: matrix.os == 'ubuntu-22.04'
-      #   uses: AdityaGarg8/remove-unwanted-software@v4.1
-      #   with:
-      #     remove-android: "true"
-      #     remove-haskell: "true"
-      #     remove-codeql: "true"
+      - name: Setup cuda
+        uses: Jimver/cuda-toolkit@v0.2.20
+        id: cuda-toolkit
+        with:
+          cuda: "12.8.1"
 
-      # - name: Setup cuda
-      #   uses: Jimver/cuda-toolkit@v0.2.20
-      #   id: cuda-toolkit
-      #   with:
-      #     cuda: "12.8"
+      - name: Setup ninja and Eigen3 on Ubuntu
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          sudo apt update
+          sudo apt install ninja-build libeigen3-dev -y
 
-      # - name: Setup ninja and Eigen3 on Ubuntu
-      #   if: matrix.os == 'ubuntu-22.04'
-      #   run: |
-      #     sudo apt update
-      #     sudo apt install ninja-build libeigen3-dev -y
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
 
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     submodules: true
+      - name: Build MUDA
+        run: |
+          cmake --preset ci-release
+          cmake --build --preset ci-release --parallel 4
 
-      # - name: Build MUDA
-      #   run: |
-      #     cmake --preset ci-release
-      #     cmake --build --preset ci-release --parallel 4
-
-      # - name: Run Tests
-      #   run: |
-      #     ctest --preset ci-release --output-on-failure
+      - name: Run Tests
+        run: |
+          ctest --preset ci-release --output-on-failure
