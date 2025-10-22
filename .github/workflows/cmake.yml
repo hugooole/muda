@@ -3,75 +3,63 @@ name: cmake
 on:
   pull_request:
     branches:
-      - 'mini20'
+      - "mini20"
     paths-ignore:
-      - '.clang-format'
-      - '.clangd'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'README.md'
-      - 'docs/**'
-      - '.github/workflows/xmake.yml'
-      - '**/xmake.lua'
-      - '**/*.bazel'
-      - '**/*.bzl'
-      - '**/*.bazelrc'
+      - ".clang-format"
+      - ".clangd"
+      - ".gitignore"
+      - "LICENSE"
+      - "README.md"
+      - "docs/**"
+      - ".github/workflows/xmake.yml"
+      - "**/xmake.lua"
+      - "**/*.bazel"
+      - "**/*.bzl"
+      - "**/*.bazelrc"
 
 jobs:
   build_and_test:
     strategy:
       matrix:
-        os: [windows-2022, ubuntu-22.04]
+        os: [ubuntu-22.04]
 
     runs-on: ${{ matrix.os }}
 
     concurrency:
-        group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-cmake-${{ matrix.os }}
-        cancel-in-progress: true
+      group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-cmake-${{ matrix.os }}
+      cancel-in-progress: true
 
     steps:
       - name: Maximize build space
         if: matrix.os == 'ubuntu-22.04'
         uses: AdityaGarg8/remove-unwanted-software@v4.1
         with:
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
 
       - name: Setup cuda
         uses: Jimver/cuda-toolkit@v0.2.20
         id: cuda-toolkit
         with:
-          cuda: '12.6.3'
+          cuda: "12.6.3"
 
       - name: Setup ninja and Eigen3 on Ubuntu
         if: matrix.os == 'ubuntu-22.04'
         run: |
           sudo apt update
-          sudo apt install ninja-build libeigen3-dev
-
-      - name: Setup ninja on Windows
-        if: matrix.os == 'windows-2022'
-        uses: seanmiddleditch/gha-setup-ninja@master
-
-      - name: Setup msvc sysroot for cmake on Windows
-        if: matrix.os == 'windows-2022'
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Install Eigen3 on Windows
-        if: matrix.os == 'windows-2022'
-        uses: kupns-aka-kupa/setup-eigen3@v1
-        with:
-          version: 3.4.0
-        env:
-          CMAKE_GENERATOR: Ninja
+          sudo apt install ninja-build libeigen3-dev -y
 
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: true
 
-      - name: Build and Test MUDA
+      - name: Build MUDA
         run: |
           cmake --preset ci-release
           cmake --build --preset ci-release --parallel 4
+
+      - name: Run Tests
+        run: |
+          ctest --preset ci-release --output-on-failure
