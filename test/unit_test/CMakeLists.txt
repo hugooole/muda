@@ -15,3 +15,5 @@ target_link_libraries(muda_unit_test PRIVATE muda cusparse cublas cusolver Eigen
 target_compile_definitions(muda_unit_test PRIVATE "-DMUDA_TEST_DATA_DIR=R\"(${PROJECT_SOURCE_DIR}/test/data)\"")
 source_group(TREE "${PROJECT_SOURCE_DIR}/test" PREFIX "test" FILES ${SOURCE})
 source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "src" FILES ${MUDA_HEADER_FILES})
+
+add_test(NAME muda_unit_test COMMAND muda_unit_test)
