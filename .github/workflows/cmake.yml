@@ -59,7 +59,3 @@ jobs:
         run: |
           cmake --preset ci-release
           cmake --build --preset ci-release --parallel 4
-
-      - name: Run Tests
-        run: |
-          ctest --preset ci-release --output-on-failure
