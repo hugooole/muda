@@ -507,7 +507,7 @@ MUDA_HOST BufferLaunch& BufferLaunch::copy(ComputeGraphVar<Buffer2DView<T>>& dst
 }
 
 template <typename T>
-MUDA_HOST BufferLaunch& copy(ComputeGraphVar<Buffer3DView<T>>& dst,
+MUDA_HOST BufferLaunch& BufferLaunch::copy(ComputeGraphVar<Buffer3DView<T>>& dst,
                              const ComputeGraphVar<T*>&        src)
 {
     return copy(dst.eval(), src.ceval());
