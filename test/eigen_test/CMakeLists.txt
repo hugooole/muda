@@ -11,3 +11,5 @@ target_include_directories(muda_eigen_test PRIVATE
 target_link_libraries(muda_eigen_test PRIVATE muda Eigen3::Eigen)
 source_group(TREE "${PROJECT_SOURCE_DIR}/test" PREFIX "test" FILES ${SOURCE})
 source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "src" FILES ${MUDA_HEADER_FILES})
+
+add_test(NAME muda_eigen_test COMMAND muda_eigen_test)

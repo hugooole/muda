@@ -12,4 +12,6 @@ set_target_properties(muda_spgrid_test PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 target_include_directories(muda_spgrid_test PRIVATE
   "${PROJECT_SOURCE_DIR}/test"
   "${PROJECT_SOURCE_DIR}/external")
-  target_link_libraries(muda_spgrid_test PRIVATE muda Eigen3::Eigen)
+target_link_libraries(muda_spgrid_test PRIVATE muda Eigen3::Eigen)
+
+add_test(NAME muda_spgrid_test COMMAND muda_spgrid_test)
