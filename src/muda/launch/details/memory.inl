@@ -233,7 +233,7 @@ MUDA_INLINE MUDA_HOST Memory& Memory::alloc(cudaPitchedPtr*   pitched_ptr,
     return alloc_3d(pitched_ptr, extent, async);
 }
 
-MUDA_INLINE MUDA_HOST Memory& muda::Memory::free(cudaPitchedPtr pitched_ptr, bool async)
+MUDA_INLINE MUDA_HOST Memory& Memory::free(cudaPitchedPtr pitched_ptr, bool async)
 {
     return free(pitched_ptr.ptr, async);
 }
