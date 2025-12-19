@@ -109,5 +109,6 @@ if(MUDA_BUILD_EXAMPLE)
 endif()
 
 if(MUDA_BUILD_TEST)
+    enable_testing()
     add_subdirectory("test")
 endif()
